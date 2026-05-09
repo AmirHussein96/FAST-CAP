@@ -1,0 +1,17 @@
+{
+    "data": {
+      "dur_min": 0,
+      "dur_max": 99,
+      "sampling_rate": 22050,
+        "validation_files": {
+            "vggsound": {
+                "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_music/vggsound",
+                "audio_dir": "data",
+                "filelist": "/lustre/fsw/portfolios/adlr/users/sanggill/filelists/vggsound/data_audio_filelist.txt",
+                "n_max_files": -1,
+                "language": "en_US",
+                "n_repeats": 0
+            }
+        }    
+    }
+}

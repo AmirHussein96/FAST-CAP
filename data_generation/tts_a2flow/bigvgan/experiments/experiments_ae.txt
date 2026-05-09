@@ -1,0 +1,104 @@
+##########################################
+# syntax: job_name|config_filepath|dataset_config_filepath|launch_params|hparams (num_workers=4 as placeholder)
+# invokes train.py --config {config_filepath} --dataset_config {dataset_config_filepath} --checkpoint_path {output_dir} --params {params}
+# --outfile of submit_job auto-mapped to {job_name}/job.log
+##########################################
+##########################################
+# BEST ONES SO FAR
+# 22kHz: vae_wavenet384_all_v3loss_22k80b_vd128_kl1e-6_cgn1000
+# 44kHz: vae_wavenet384_all_v3loss_44k128b_bs32_ss64k_vd128_kl1e-6_cgn2000
+# 44khz 512x: vae_wavenet384_all_v3loss_44k128b512h2048w_bs32_ss64k_vd128_kl1e-6_cgn2000 / vae_wavenet384_all_cqtlossf128_44k128b512h2048w_bs32_ss64k_vd128_kl1e-6_cgn2000_noaatanhbias
+# USING COMMERCIAL DATASETS (low priority for now, no intention to publish)
+# 22khz: vae_wavenet384_commercial_v3loss_22k80b_vd128_kl1e-6_cgn1000
+# 44khz: vae_wavenet384_commercial_v3loss_44k128b_bs32_ss64k_vd128_kl1e-6_cgn2000
+# 44khz 512x: vae_wavenet384_commercial_v3loss_44k128b512h2048w_bs32_ss64k_vd128_kl1e-6_cgn2000
+##########################################
+##########################################
+# wavenet enc 384 channels (20M) is somewhat better in quality than 7M encoder, but latent p-flow can get slower during training
+##########################################
+#vae_wavenet_all_v3loss_22k80b_vd128_kl1e-6_cgn1000|configs_vae/vae_wavenet_v3loss_22k80b_bs128_ss16k.json|datasets/adlr_audio_everything.json|--gpu 8 --nodes 1|num_workers=4 vocoder_input_dim=128 lambda_klloss=0.000001 clip_grad_norm=1000
+##########################################
+# Now with wavenet384 as default encoder arch and mel input as default (linear spec input is somewhat worse for both speech and music, hmm...)
+# best runs for 22/44k so far
+# vae_wavenet 44khz bs32_ss64k runs: stable audio uses larger segment length, which can be important to reduce vibrato artifacts
+# also try out clip_grad_norm=2000. why the models in this branch suddenly lags behind music-exp branch? checked every single code and there's no error...
+# cgn 1000 vs 2000: mostly the same, but avg grad_norm of g hovers around 2000 so let's use 2000 (doesn't fail at least)
+# mel sounds slightly better than linear, even for music (shrug)
+# +more exodic vae_wavenet 44khz bs32_ss64k runs. longer segment sounds somewhat better with less vibrato (or just placebo, idk)
+# also with hop_size=512: so far model kept 256, so mel coderate (170Hz) is double than 22/24 (85Hz), rasising the burden to downstream models
+# bring the coderate back to 80Hz range and measure the perf drop. window length 1024 or 2048 (also n_fft)
+# 1024w sounds tinny compared to 2048w: let's use 2048w as default stft params for 44k 512x model now
+# first AMP block upsampling rate is doubled to handle 512x upsampling
+# loss_type=hinge (mirrors recent models like EnCodec, DAC..) & mpd_normalize_volume 
+# also try out normalize_volume=false (in meldataset.py) again just in case (in a hope for the model to cover diverse volumes as well, with "stabilized" vnorm'ed mpd & mrd)
+# for kl1e-6, ALL VERY BAD, other than classic recipe (ex. just hingeloss) already sounds awful. Why the recent models are using hinge ummmm... but the vocoder branch (sanggill/music-exp) seems fine (actually less vibrato!)
+# HINGE LOSS IS NOT WORTH IT, too bad to tune
+# for 512h2048w, sounds bad on low-band (pitch difference is not clear for bass...). will doubling the mel band help making better latent? (256b)
+# after >400k steps kl1e-6 sounds better than kl1e-5 (too much reg i guess)
+# kl=1e-6 std peaks out >2 in early steps but comes down (1.5 or so) after 400kish
+# terminate at around 4M, done enough at that point
+##########################################
+#vae_wavenet384_all_v3loss_22k80b_vd128_kl1e-6_cgn1000|configs_vae/vae_wavenet_v3loss_22k80b_bs128_ss16k.json|datasets/adlr_audio_everything.json|--gpu 8 --nodes 1|num_workers=4 enc_dim=384 vocoder_input_dim=128 lambda_klloss=0.000001 clip_grad_norm=1000
+#vae_wavenet384_all_v3loss_44k128b_bs32_ss64k_vd128_kl1e-6_cgn2000|configs_vae/vae_wavenet_v3loss_44k128b_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|num_workers=4 enc_dim=384 vocoder_input_dim=128 lambda_klloss=0.000001 clip_grad_norm=2000
+#vae_wavenet384_all_v3loss_44k128b512h2048w_bs32_ss64k_vd128_kl1e-6_cgn2000|configs_vae/vae_wavenet_v3loss_44k128b512h2048w_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|num_workers=4 enc_dim=384 vocoder_input_dim=128 lambda_klloss=0.000001 clip_grad_norm=2000
+##########################################
+# 44k cqt exps: new kid in town; is it really better than dac d?
+# cqt with f164/f128 scores quite better than v3loss. Interesting!
+##########################################
+#voc_all_cqtlossf32_44k128b512h2048w_bs32_ss64k_cgn500|configs_poc/cqtloss_44k128b512h2048w_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|num_mels=128 num_workers=4 clip_grad_norm=500 cqtd_filters=32
+#voc_all_cqtlossf64_44k128b512h2048w_bs32_ss64k_cgn500|configs_poc/cqtloss_44k128b512h2048w_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|num_mels=128 num_workers=4 clip_grad_norm=500 cqtd_filters=64
+#voc_all_cqtlossf128_44k128b512h2048w_bs32_ss64k_cgn500|configs_poc/cqtloss_44k128b512h2048w_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|num_mels=128 num_workers=4 clip_grad_norm=500 cqtd_filters=128
+##########################################
+# 44k notanh / nobias exps: reflecting sa2.0
+# hit and miss: better mid-high, but low keys (bassline) are "lumped" into a single note
+##########################################
+#vae_wavenet384_all_v3loss_44k128b512h2048w_bs32_ss64k_vd128_kl1e-6_cgn2000_notanh_nobias|configs_vae/vae_wavenet_v3loss_44k128b512h2048w_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|num_workers=4 enc_dim=384 vocoder_input_dim=128 lambda_klloss=0.000001 clip_grad_norm=2000 use_tanh_at_final=false use_bias_at_final=false
+##########################################
+# more adventure: noaa, and cqt
+# why is this setup unresonably good in metrics?: vae_wavenet384_all_cqtlossf128_44k128b512h2048w_bs32_ss64k_vd128_kl1e-6_cgn2000_noaatanhbias
+##########################################
+#vae_wavenet384_all_v3loss_44k128b512h2048w_bs32_ss64k_vd128_kl1e-6_cgn2000_noaatanhbias|configs_vae/vae_wavenet_v3loss_44k128b512h2048w_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|num_workers=4 enc_dim=384 vocoder_input_dim=128 lambda_klloss=0.000001 clip_grad_norm=2000 anti_aliasing=false use_tanh_at_final=false use_bias_at_final=false
+vae_wavenet384_all_cqtlossf128_44k128b512h2048w_bs32_ss64k_vd128_kl1e-6_cgn2000_noaatanhbias|configs_vae/vae_wavenet_cqtloss_44k128b512h2048w_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|num_workers=4 enc_dim=384 vocoder_input_dim=128 lambda_klloss=0.000001 clip_grad_norm=2000 cqtd_filters=128 anti_aliasing=false use_tanh_at_final=false use_bias_at_final=false
+##########################################
+# perceptual weighting (A-weighitng) to DAC's MRSTFT loss
+# does sound better so let's keep in now on
+##########################################
+#vae_wavenet384_all_v3pwloss_44k128b512h2048w_bs32_ss64k_vd128_kl1e-6_cgn2000_noaatanhbias|configs_vae/vae_wavenet_v3loss_44k128b512h2048w_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|num_workers=4 enc_dim=384 vocoder_input_dim=128 lambda_klloss=0.000001 perceptual_weighting=true clip_grad_norm=2000 anti_aliasing=false use_tanh_at_final=false use_bias_at_final=false
+#vae_wavenet384_all_cqtpwlossf128_44k128b512h2048w_bs32_ss64k_vd128_kl1e-6_cgn2000_noaatanhbias|configs_vae/vae_wavenet_cqtloss_44k128b512h2048w_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|num_workers=4 enc_dim=384 vocoder_input_dim=128 lambda_klloss=0.000001 perceptual_weighting=true clip_grad_norm=2000 cqtd_filters=128 anti_aliasing=false use_tanh_at_final=false use_bias_at_final=false
+##########################################
+# using best D/loss combination so far, test nobias/notanh/noaa
+# show somewhat worse metric than only using cqt Ds, but sounds better tome so far...?
+# the original paper also recommended adding these on top of existing stft-based discriminators...
+##########################################
+vae_wavenet384_all_v3cqtpwlossf128_44k128b512h2048w_bs32_ss64k_vd128_kl1e-6_cgn2000_noaatanhbias|configs_vae/vae_wavenet_v3cqtloss_44k128b512h2048w_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|num_workers=4 enc_dim=384 vocoder_input_dim=128 lambda_klloss=0.000001 perceptual_weighting=true clip_grad_norm=2000 cqtd_filters=128 anti_aliasing=false use_tanh_at_final=false use_bias_at_final=false
+#vae_wavenet384_all_v3cqtpwlossf128_44k128b512h2048w_bs32_ss64k_vd128_kl1e-6_cgn2000_notanhbias|configs_vae/vae_wavenet_v3cqtloss_44k128b512h2048w_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|num_workers=4 enc_dim=384 vocoder_input_dim=128 lambda_klloss=0.000001 perceptual_weighting=true clip_grad_norm=2000 cqtd_filters=128 use_tanh_at_final=false use_bias_at_final=false
+#vae_wavenet384_all_v3cqtpwlossf128_44k128b512h2048w_bs32_ss64k_vd128_kl1e-6_cgn2000_nobias|configs_vae/vae_wavenet_v3cqtloss_44k128b512h2048w_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|num_workers=4 enc_dim=384 vocoder_input_dim=128 lambda_klloss=0.000001 perceptual_weighting=true clip_grad_norm=2000 cqtd_filters=128 use_bias_at_final=false
+##########################################
+# oobleck stereo model exps, wav-in wav-out. since the bottleneck is 8 times smaller (4x in time, 2x in channel), use kl1e-5 to keep same loss balance to prev. models
+# all sdstft coeff causing nan at 4k-5k steps
+##########################################
+#vae_oobleck_all_v3cqtpwlossf128_44k2048h_bs32_ss64k_vd64_kl1e-5_cgn500|configs_vae/vae_oobleck_v3cqtloss_44k2048h_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|num_workers=4 vocoder_input_dim=64 lambda_klloss=0.00001 perceptual_weighting=true clip_grad_norm=500 cqtd_filters=128 use_sdstftloss=false
+#vae_oobleck_stereo_all_v3cqtpwlossf128_44k2048h_bs32_ss64k_vd64_kl1e-5_cgn500_sdstft0.3|configs_vae/vae_oobleck_v3cqtloss_44k2048h_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|stereo=true num_workers=4 vocoder_input_dim=64 lambda_klloss=0.00001 perceptual_weighting=true clip_grad_norm=500 cqtd_filters=128 use_sdstftloss=true lambda_sdstftloss=0.3
+#vae_oobleck_stereo_all_v3cqtpwlossf128_44k2048h_bs32_ss64k_vd64_kl1e-5_cgn500_sdstft0.6|configs_vae/vae_oobleck_v3cqtloss_44k2048h_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|stereo=true num_workers=4 vocoder_input_dim=64 lambda_klloss=0.00001 perceptual_weighting=true clip_grad_norm=500 cqtd_filters=128 use_sdstftloss=true lambda_sdstftloss=0.6
+#vae_oobleck_stereo_all_v3cqtpwlossf128_44k2048h_bs32_ss64k_vd64_kl1e-5_cgn500_sdstft1.0|configs_vae/vae_oobleck_v3cqtloss_44k2048h_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|stereo=true num_workers=4 vocoder_input_dim=64 lambda_klloss=0.00001 perceptual_weighting=true clip_grad_norm=500 cqtd_filters=128 use_sdstftloss=true lambda_sdstftloss=1.0
+##########################################
+# (low priority) vae v2 reparam: using softplus to scale params, based on current best D/loss (v3cqtpwlossf128)
+##########################################
+#vaev2_wavenet384_all_v3cqtpwlossf128_44k128b512h2048w_bs32_ss64k_vd128_kl1e-6_cgn2000_noaatanhbias|configs_vae/vae_wavenet_v3cqtloss_44k128b512h2048w_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|use_vae_reparameterize_v2=true num_workers=4 enc_dim=384 vocoder_input_dim=128 lambda_klloss=0.000001 perceptual_weighting=true clip_grad_norm=2000 cqtd_filters=128 anti_aliasing=false use_tanh_at_final=false use_bias_at_final=false
+#vaev2_wavenet384_all_v3cqtpwlossf128_44k128b512h2048w_bs32_ss64k_vd128_kl1e-6_cgn2000_notanhbias|configs_vae/vae_wavenet_v3cqtloss_44k128b512h2048w_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|use_vae_reparameterize_v2=true num_workers=4 enc_dim=384 vocoder_input_dim=128 lambda_klloss=0.000001 perceptual_weighting=true clip_grad_norm=2000 cqtd_filters=128 use_tanh_at_final=false use_bias_at_final=false
+#vaev2_wavenet384_all_v3cqtpwlossf128_44k128b512h2048w_bs32_ss64k_vd128_kl1e-6_cgn2000_nobias|configs_vae/vae_wavenet_v3cqtloss_44k128b512h2048w_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|use_vae_reparameterize_v2=true num_workers=4 enc_dim=384 vocoder_input_dim=128 lambda_klloss=0.000001 perceptual_weighting=true clip_grad_norm=2000 cqtd_filters=128 use_bias_at_final=false
+##########################################
+# (low priority) using commercial datasets
+##########################################
+#vae_wavenet384_commercial_v3loss_22k80b_vd128_kl1e-6_cgn1000|configs_vae/vae_wavenet_v3loss_22k80b_bs128_ss16k.json|datasets/adlr_audio_commercial_22k.json|--gpu 8 --nodes 1|num_workers=4 enc_dim=384 vocoder_input_dim=128 lambda_klloss=0.000001 clip_grad_norm=1000
+#vae_wavenet384_commercial_v3loss_44k128b_bs32_ss64k_vd128_kl1e-6_cgn2000|configs_vae/vae_wavenet_v3loss_44k128b_bs32_ss64k.json|datasets/adlr_audio_commercial_44k.json|--gpu 8 --nodes 1|num_workers=4 enc_dim=384 vocoder_input_dim=128 lambda_klloss=0.000001 clip_grad_norm=2000
+#vae_wavenet384_commercial_v3loss_44k128b512h2048w_bs32_ss64k_vd128_kl1e-6_cgn2000|configs_vae/vae_wavenet_v3loss_44k128b512h2048w_bs32_ss64k.json|datasets/adlr_audio_commercial_44k.json|--gpu 8 --nodes 1|num_workers=4 enc_dim=384 vocoder_input_dim=128 lambda_klloss=0.000001 clip_grad_norm=2000
+#vae_wavenet384_commercial_v3cqtpwlossf128_44k128b512h2048w_bs32_ss64k_vd128_kl1e-6_cgn2000_nobias|configs_vae/vae_wavenet_v3cqtloss_44k128b512h2048w_bs32_ss64k.json|datasets/adlr_audio_commercial_44k.json|--gpu 8 --nodes 1|num_workers=4 enc_dim=384 vocoder_input_dim=128 lambda_klloss=0.000001 perceptual_weighting=true clip_grad_norm=2000 cqtd_filters=128 use_bias_at_final=false
+##########################################
+# (low priority) freeze encdoer: only fine-tune the decoder from first checkpoints I shared to the team
+# and compare against the above (just keep training both enc/dec)
+# this technique is also often used by other neural audio codec models
+##########################################
+#fenc_from_1.6m_vae_wavenet384_all_v3loss_22k80b_vd128_kl1e-6_cgn1000|configs_vae/vae_wavenet_v3loss_22k80b_bs128_ss16k.json|datasets/adlr_audio_everything.json|--gpu 8 --nodes 1|freeze_encoder=true num_workers=4 enc_dim=384 vocoder_input_dim=128 lambda_klloss=0.000001 clip_grad_norm=1000
+#fenc_from_1.0m_vae_wavenet384_all_v3loss_44k128b_bs32_ss64k_vd128_kl1e-6_cgn2000|configs_vae/vae_wavenet_v3loss_44k128b_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|freeze_encoder=true num_workers=4 enc_dim=384 vocoder_input_dim=128 lambda_klloss=0.000001 clip_grad_norm=2000
+#fenc_from_1.55m_vae_wavenet384_all_v3loss_44k128b512h2048w_bs32_ss64k_vd128_kl1e-6_cgn2000|configs_vae/vae_wavenet_v3loss_44k128b512h2048w_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|freeze_encoder=true num_workers=4 enc_dim=384 vocoder_input_dim=128 lambda_klloss=0.000001 clip_grad_norm=2000

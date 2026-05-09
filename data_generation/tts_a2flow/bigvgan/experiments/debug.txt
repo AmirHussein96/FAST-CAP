@@ -1,0 +1,7 @@
+##########################################
+# syntax: job_name|config_filepath|dataset_config_filepath|launch_params|hparams (num_workers=1 as placeholder)
+# --outfile of submit_job auto-mapped to {job_name}/job.log
+##########################################
+debug_autoresume|configs_poc/22k80b_bs32.json|datasets/libritts_clean100.json|--gpu 1 --nodes 1|num_workers=1 batch_size=32 warmup_step=5000
+debug_dataset|configs_poc/22k80b_bs32.json|datasets/adlr_audio_speech_pflow.json|--gpu 1 --nodes 1|num_workers=4 batch_size=32 warmup_step=5000
+debug_v2loss|configs_poc/v2loss_22k80b_bs32.json|datasets/adlr_audio_speech_pflow.json|--gpu 1 --nodes 1|num_workers=4 batch_size=32 warmup_step=5000

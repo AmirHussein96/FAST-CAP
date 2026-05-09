@@ -1,0 +1,11 @@
+##########################################
+# syntax: job_name|config_filepath|dataset_config_filepath|launch_params|hparams (num_workers=4 as placeholder)
+# --outfile of submit_job auto-mapped to {job_name}/job.log
+##########################################
+##########################################
+# 44khz everything = 18k hours, 3.1M samples, full-band (fmax=22050), v3loss. mel band sweep
+##########################################
+v3loss_all_44k80b_bs128_ss16k_cgn500|configs_poc/v3loss_44k100b_bs128_ss16k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|num_mels=80 num_workers=4 clip_grad_norm=500 warmup_step=5000
+v3loss_all_44k100b_bs128_ss16k_cgn500|configs_poc/v3loss_44k100b_bs128_ss16k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|num_mels=100 num_workers=4 clip_grad_norm=500 warmup_step=5000
+v3loss_all_44k128b_bs128_ss16k_cgn500|configs_poc/v3loss_44k100b_bs128_ss16k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|num_mels=128 num_workers=4 clip_grad_norm=500 warmup_step=5000
+v3loss_all_44k192b_bs128_ss16k_cgn500|configs_poc/v3loss_44k100b_bs128_ss16k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|num_mels=192 num_workers=4 clip_grad_norm=500 warmup_step=5000

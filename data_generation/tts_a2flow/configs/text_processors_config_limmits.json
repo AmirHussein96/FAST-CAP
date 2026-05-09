@@ -1,0 +1,106 @@
+{
+    "de_DE": {
+            "symbol_set": "radmmm_phonemizer_marker_segregated",
+            "cleaner_name": ["basic_cleaners"]
+        },
+    "du_NL": {
+        "symbol_set": "multilingual",
+        "cleaner_name": ["basic_cleaners"]
+    },
+    "en": {
+        "symbol_set": "radmmm_phonemizer_marker_segregated",
+        "cleaner_name": ["basic_cleaners"]
+    },
+    "en_US": {
+        "symbol_set": "radmmm_phonemizer_marker_segregated",
+        "cleaner_name": ["basic_cleaners"]
+    },
+    "en_UK": {
+        "symbol_set": "radmmm_phonemizer_marker_segregated",
+        "cleaner_name": ["basic_cleaners"]
+    },
+    "en_MN": {
+        "symbol_set": "radmmm_phonemizer_marker_segregated",
+        "cleaner_name": ["basic_cleaners"]
+    },
+    "es_CO": {
+        "symbol_set": "radmmm_phonemizer_marker_segregated",
+        "cleaner_name": ["basic_cleaners"]
+    },
+    "es_AR": {
+        "symbol_set": "radmmm_phonemizer_marker_segregated",
+        "cleaner_name": ["basic_cleaners"]
+    },
+    "es_CL": {
+        "symbol_set": "radmmm_phonemizer_marker_segregated",
+        "cleaner_name": ["basic_cleaners"]
+    },
+    "es_PE": {
+        "symbol_set": "radmmm_phonemizer_marker_segregated",
+        "cleaner_name": ["basic_cleaners"]
+    },
+    "es_PR": {
+        "symbol_set": "radmmm_phonemizer_marker_segregated",
+        "cleaner_name": ["basic_cleaners"]
+    },
+    "es_VE": {
+        "symbol_set": "radmmm_phonemizer_marker_segregated",
+        "cleaner_name": ["basic_cleaners"]
+    },
+    "es_ES": {
+        "symbol_set": "radmmm_phonemizer_marker_segregated",
+        "cleaner_name": ["basic_cleaners"]
+    },
+    "es_MX": {
+        "symbol_set": "radmmm_phonemizer_marker_segregated",
+        "cleaner_name": ["basic_cleaners"]
+    },
+    "fr_FR": {
+        "symbol_set": "radmmm_phonemizer_marker_segregated",
+        "cleaner_name": ["basic_cleaners"]
+    },
+    "hi": {
+        "symbol_set": "radmmm_phonemizer_marker_segregated",
+        "cleaner_name": ["basic_cleaners"]
+    },
+    "hi_HI": {
+        "symbol_set": "radmmm_phonemizer_marker_segregated",
+        "cleaner_name": ["basic_cleaners"]
+    },
+    "mar_MAR": {
+        "symbol_set": "radmmm_phonemizer_marker_segregated",
+        "cleaner_name": ["basic_cleaners"]
+    },
+    "te_TE": {
+        "symbol_set": "radmmm_phonemizer_marker_segregated",
+        "cleaner_name": ["basic_cleaners"]
+    },
+    "hi_CH": {
+        "symbol_set": "radmmm_phonemizer_marker_segregated",
+        "cleaner_name": ["basic_cleaners"]
+    },
+    "en_IN": {
+        "symbol_set": "radmmm_phonemizer_marker_segregated",
+        "cleaner_name": ["basic_cleaners"]
+    },
+    "ben_BEN": {
+        "symbol_set": "radmmm_phonemizer_marker_segregated",
+        "cleaner_name": ["basic_cleaners"]
+    },
+    "kan_KAN": {
+        "symbol_set": "radmmm_phonemizer_marker_segregated",
+        "cleaner_name": ["basic_cleaners"]
+    },
+    "it_IT": {
+        "symbol_set": "radmmm_phonemizer_marker_segregated",
+        "cleaner_name": ["basic_cleaners"]
+    },
+    "pl_PL": {
+        "symbol_set": "multilingual",
+        "cleaner_name": ["basic_cleaners"]
+    },
+    "pt_BR": {
+        "symbol_set": "radmmm_phonemizer_marker_segregated",
+        "cleaner_name": ["basic_cleaners"]
+    }
+}

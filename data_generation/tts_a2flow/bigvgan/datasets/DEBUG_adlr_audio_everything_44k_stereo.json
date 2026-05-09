@@ -1,0 +1,26 @@
+{
+    "data": {
+      "dur_min": 0,
+      "dur_max": 9999,
+      "sampling_rate": 44100,
+      "training_files": {
+          "ODEON_Sound_Effects": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_music/ODEON_Sound_Effects",
+            "audio_dir": "audio",
+            "filelist": "/lustre/fsw/portfolios/adlr/users/sanggill/filelists/ODEON_Sound_Effects_44khz_stereo/audio_audio_filelist.txt",
+            "n_max_files": -1,
+            "language": "en_US"
+          }
+        },
+        "validation_files": {
+            "LibriTTS-Dev": {
+                "basedir": "datasets/LibriTTS",
+                "audio_dir": "44khzfrom22khz",
+                "filelist": "dev_audiopath_text_speaker_emotion_duration_filelist.txt",
+                "n_max_files": 128,
+                "language": "en_US",
+                "n_repeats": 0
+            }
+        }    
+    }
+}

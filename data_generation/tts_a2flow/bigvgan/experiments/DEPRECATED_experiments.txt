@@ -1,0 +1,118 @@
+##########################################
+# syntax: job_name|config_filepath|dataset_config_filepath|launch_params|hparams (num_workers=4 as placeholder)
+# --outfile of submit_job auto-mapped to {job_name}/job.log
+##########################################
+##########################################
+# moved from 22k
+##########################################
+#v4loss_all_22k80b_bs128_ss16k_cgn500|configs_poc/v2loss_22k80b_bs128_ss16k.json|datasets/adlr_audio_everything.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=500 warmup_step=5000 mcbd_apply_large_kernel_to_freq=true
+#v4loss_all_22k80b_fmax11k_bs128_ss16k_cgn500|configs_poc/v2loss_22k80b_fmax11k_bs128_ss16k.json|datasets/adlr_audio_everything.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=500 warmup_step=5000 mcbd_apply_large_kernel_to_freq=true
+#v3loss_pf_22k80b_fmax11k_bs128_ss16k_cgn500|configs_poc/v3loss_22k80b_fmax11k_bs128_ss16k.json|datasets/adlr_audio_speech_pflow.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=500 warmup_step=5000
+#v3loss_alm_22k80b_fmax11k_bs128_ss16k_cgn500|configs_poc/v3loss_22k80b_fmax11k_bs128_ss16k.json|datasets/audiolm.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=500 warmup_step=5000
+#v3loss_pf_22k192b_bs128_ss16k_cgn500|configs_poc/v3loss_22k192b_bs128_ss16k.json|datasets/adlr_audio_speech_pflow.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=500 warmup_step=5000
+#all_22k80b_bs128_ss16k_novn_cgn500|configs_poc/22k80b_bs128_ss16k.json|datasets/adlr_audio_everything.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=500 warmup_step=4000 normalize_volume=False
+#v3loss_pf_22k80b_bs128_ss16k_cgn500|configs_poc/v3loss_22k80b_bs128_ss16k.json|datasets/adlr_audio_speech_pflow.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=500 warmup_step=5000
+#v3loss_alm_22k80b_bs128_ss16k_cgn500|configs_poc/v3loss_22k80b_bs128_ss16k.json|datasets/audiolm.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=500 warmup_step=5000
+#alm_22k80b_bs128_ss16k_cgn500|configs_poc/22k80b_bs128_ss16k.json|datasets/audiolm.json|--gpu 8 --nodes 1|num_workers=4 warmup_step=5000 clip_grad_norm=500
+#pf_22k80b_bs128_ss16k_cgn500|configs_poc/22k80b_bs128_ss16k.json|datasets/adlr_audio_speech_pflow.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=500 warmup_step=5000
+#pf_22k80b_bs128_ss16k_warmup5k|configs_poc/22k80b_bs128_ss16k.json|datasets/adlr_audio_speech_pflow.json|--gpu 8 --nodes 1|num_workers=4 warmup_step=5000
+#pf_22k80b_bs128_ss16k_novn_warmup5k|configs_poc/22k80b_bs128_ss16k.json|datasets/adlr_audio_speech_pflow.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=1 warmup_step=5000 normalize_volume=False
+#pf_22k80b_bs128_ss16k_novn_cgn500|configs_poc/22k80b_bs128_ss16k.json|datasets/adlr_audio_speech_pflow.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=500 warmup_step=5000 normalize_volume=False
+#alm_22k80b_bs128_ss16k_novn_cgn500|configs_poc/22k80b_bs128_ss16k.json|datasets/audiolm.json|--gpu 8 --nodes 1|num_workers=4 warmup_step=5000 clip_grad_norm=500 normalize_volume=False
+#all_v3loss_22k80b_bs128_ss16k_cgn500_lm30|configs_poc/v3loss_22k80b_bs128_ss16k.json|datasets/adlr_audio_everything.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=500 warmup_step=5000 lambda_melloss=30
+#all_v3loss_22k80b_bs128_ss16k_cgn500_lm45|configs_poc/v3loss_22k80b_bs128_ss16k.json|datasets/adlr_audio_everything.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=500 warmup_step=5000 lambda_melloss=45
+#22k80b_bs128_ss16k|configs_poc/22k80b_bs128_ss16k.json|datasets/libritts.json|--gpu 8 --nodes 1|num_workers=4
+#22k80b_bs128_ss16k_novn|configs_poc/22k80b_bs128_ss16k.json|datasets/libritts.json|--gpu 8 --nodes 1|num_workers=4 normalize_volume=False
+#22k80b_bs256|configs_poc/22k80b_bs256.json|datasets/libritts.json|--gpu 8 --nodes 1|num_workers=4
+#22k80b_bs256_novn|configs_poc/22k80b_bs256.json|datasets/libritts.json|--gpu 8 --nodes 1|num_workers=4 normalize_volume=False
+#pf_22k80b_bs256_novn_warmup1k|configs_poc/22k80b_bs256.json|datasets/adlr_audio_speech_pflow.json|--gpu 8 --nodes 1|num_workers=4 warmup_step=1000 normalize_volume=False
+#pf_22k80b_bs256_novn_warmup2k|configs_poc/22k80b_bs256.json|datasets/adlr_audio_speech_pflow.json|--gpu 8 --nodes 1|num_workers=4 warmup_step=2000 normalize_volume=False
+#pf_22k80b_bs256_novn_warmup3k|configs_poc/22k80b_bs256.json|datasets/adlr_audio_speech_pflow.json|--gpu 8 --nodes 1|num_workers=4 warmup_step=3000 normalize_volume=False
+#pf_22k80b_bs256_novn_warmup4k|configs_poc/22k80b_bs256.json|datasets/adlr_audio_speech_pflow.json|--gpu 8 --nodes 1|num_workers=4 warmup_step=4000 normalize_volume=False
+#pf_22k80b_bs256_novn_warmup5k|configs_poc/22k80b_bs256.json|datasets/adlr_audio_speech_pflow.json|--gpu 8 --nodes 1|num_workers=4 warmup_step=5000 normalize_volume=False
+#pf_22k80b_bs256_warmup1k|configs_poc/22k80b_bs256.json|datasets/adlr_audio_speech_pflow.json|--gpu 8 --nodes 1|num_workers=4 warmup_step=1000
+#pf_22k80b_bs256_warmup2k|configs_poc/22k80b_bs256.json|datasets/adlr_audio_speech_pflow.json|--gpu 8 --nodes 1|num_workers=4 warmup_step=2000
+#pf_22k80b_bs256_warmup3k|configs_poc/22k80b_bs256.json|datasets/adlr_audio_speech_pflow.json|--gpu 8 --nodes 1|num_workers=4 warmup_step=3000
+#pf_22k80b_bs256_warmup4k|configs_poc/22k80b_bs256.json|datasets/adlr_audio_speech_pflow.json|--gpu 8 --nodes 1|num_workers=4 warmup_step=4000
+#pf_22k80b_bs256_warmup5k|configs_poc/22k80b_bs256.json|datasets/adlr_audio_speech_pflow.json|--gpu 8 --nodes 1|num_workers=4  clip_grad_norm=1 warmup_step=5000
+#pf_22k80b_bs128_ss16k_novn_warmup1k|configs_poc/22k80b_bs128_ss16k.json|datasets/adlr_audio_speech_pflow.json|--gpu 8 --nodes 1|num_workers=4  clip_grad_norm=1 warmup_step=1000 normalize_volume=False
+#pf_22k80b_bs128_ss16k_novn_warmup2k|configs_poc/22k80b_bs128_ss16k.json|datasets/adlr_audio_speech_pflow.json|--gpu 8 --nodes 1|num_workers=4  clip_grad_norm=1 warmup_step=2000 normalize_volume=False
+#pf_22k80b_bs128_ss16k_novn_warmup3k|configs_poc/22k80b_bs128_ss16k.json|datasets/adlr_audio_speech_pflow.json|--gpu 8 --nodes 1|num_workers=4 warmup_step=3000 normalize_volume=False
+#pf_22k80b_bs128_ss16k_novn_warmup4k|configs_poc/22k80b_bs128_ss16k.json|datasets/adlr_audio_speech_pflow.json|--gpu 8 --nodes 1|num_workers=4  clip_grad_norm=1 warmup_step=4000 normalize_volume=False
+#pf_22k80b_bs128_ss16k_warmup1k|configs_poc/22k80b_bs128_ss16k.json|datasets/adlr_audio_speech_pflow.json|--gpu 8 --nodes 1|num_workers=4  clip_grad_norm=1 warmup_step=1000
+#pf_22k80b_bs128_ss16k_warmup2k|configs_poc/22k80b_bs128_ss16k.json|datasets/adlr_audio_speech_pflow.json|--gpu 8 --nodes 1|num_workers=4  clip_grad_norm=1 warmup_step=2000
+#pf_22k80b_bs128_ss16k_warmup3k|configs_poc/22k80b_bs128_ss16k.json|datasets/adlr_audio_speech_pflow.json|--gpu 8 --nodes 1|num_workers=4  clip_grad_norm=1 warmup_step=3000
+#pf_22k80b_bs128_ss16k_warmup4k|configs_poc/22k80b_bs128_ss16k.json|datasets/adlr_audio_speech_pflow.json|--gpu 8 --nodes 1|num_workers=4 warmup_step=4000
+#pf_22k80b_bs128_ss16k_cgn1|configs_poc/22k80b_bs128_ss16k.json|datasets/adlr_audio_speech_pflow.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=1 warmup_step=5000
+#pf_22k80b_bs128_ss16k_cgn10|configs_poc/22k80b_bs128_ss16k.json|datasets/adlr_audio_speech_pflow.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=10 warmup_step=5000
+#pf_22k80b_bs128_ss16k_cgn100|configs_poc/22k80b_bs128_ss16k.json|datasets/adlr_audio_speech_pflow.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=100 warmup_step=5000
+#pf_22k80b_bs128_ss16k_novn_cgn1|configs_poc/22k80b_bs128_ss16k.json|datasets/adlr_audio_speech_pflow.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=1 warmup_step=5000 normalize_volume=False
+#pf_22k80b_bs128_ss16k_novn_cgn10|configs_poc/22k80b_bs128_ss16k.json|datasets/adlr_audio_speech_pflow.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=10 warmup_step=5000 normalize_volume=False
+#pf_22k80b_bs128_ss16k_novn_cgn100|configs_poc/22k80b_bs128_ss16k.json|datasets/adlr_audio_speech_pflow.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=100 warmup_step=5000 normalize_volume=False
+#pf_22k80b_bs256_cgn1|configs_poc/22k80b_bs256.json|datasets/adlr_audio_speech_pflow.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=1 warmup_step=5000
+#pf_22k80b_bs256_cgn10|configs_poc/22k80b_bs256.json|datasets/adlr_audio_speech_pflow.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=10 warmup_step=5000
+#pf_22k80b_bs256_cgn100|configs_poc/22k80b_bs256.json|datasets/adlr_audio_speech_pflow.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=100 warmup_step=5000
+#pf_22k80b_bs256_cgn1000|configs_poc/22k80b_bs256.json|datasets/adlr_audio_speech_pflow.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=1000 warmup_step=5000
+#pf_22k80b_bs256_novn_cgn1|configs_poc/22k80b_bs256.json|datasets/adlr_audio_speech_pflow.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=1 warmup_step=5000 normalize_volume=False
+#pf_22k80b_bs256_novn_cgn10|configs_poc/22k80b_bs256.json|datasets/adlr_audio_speech_pflow.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=10 warmup_step=5000 normalize_volume=False
+#pf_22k80b_bs256_novn_cgn100|configs_poc/22k80b_bs256.json|datasets/adlr_audio_speech_pflow.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=100 warmup_step=5000 normalize_volume=False
+#pf_22k80b_bs256_novn_cgn1000|configs_poc/22k80b_bs256.json|datasets/adlr_audio_speech_pflow.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=1000 warmup_step=5000 normalize_volume=False
+#alm_22k80b_bs256_cgn500|configs_poc/22k80b_bs256.json|datasets/audiolm.json|--gpu 8 --nodes 1|num_workers=4 warmup_step=5000 clip_grad_norm=500
+#alm_22k80b_bs256_novn_cgn500|configs_poc/22k80b_bs256.json|datasets/audiolm.json|--gpu 8 --nodes 1|num_workers=4 warmup_step=5000 clip_grad_norm=500 normalize_volume=False
+#alm_22k80b_bs256_novn|configs_poc/22k80b_bs256.json|datasets/audiolm.json|--gpu 8 --nodes 1|num_workers=4 warmup_step=5000 normalize_volume=False
+#alm_22k80b_bs256_cgn100|configs_poc/22k80b_bs256.json|datasets/audiolm.json|--gpu 8 --nodes 1|num_workers=4 warmup_step=5000 clip_grad_norm=100
+#alm_22k80b_bs256_novn_cgn100|configs_poc/22k80b_bs256.json|datasets/audiolm.json|--gpu 8 --nodes 1|num_workers=4 warmup_step=5000 clip_grad_norm=100 normalize_volume=False
+#alm_22k80b_bs128_ss16k_cgn100|configs_poc/22k80b_bs128_ss16k.json|datasets/audiolm.json|--gpu 8 --nodes 1|num_workers=4 warmup_step=5000 clip_grad_norm=100
+#alm_22k80b_bs128_ss16k_novn_cgn100|configs_poc/22k80b_bs128_ss16k.json|datasets/audiolm.json|--gpu 8 --nodes 1|num_workers=4 warmup_step=5000 clip_grad_norm=100 normalize_volume=False
+#v2loss_pf_22k80b_bs128_ss16k_cgn500|configs_poc/v2loss_22k80b_bs128_ss16k.json|datasets/adlr_audio_speech_pflow.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=500 warmup_step=4000
+#v2loss_pf_22k80b_bs256_cgn500|configs_poc/v2loss_22k80b_bs256.json|datasets/adlr_audio_speech_pflow.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=500 warmup_step=4000
+#v2loss_alm_22k80b_bs128_ss16k_cgn500|configs_poc/v2loss_22k80b_bs128_ss16k.json|datasets/audiolm.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=500 warmup_step=4000
+#v2loss_alm_22k80b_bs256_cgn500|configs_poc/v2loss_22k80b_bs256.json|datasets/audiolm.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=500 warmup_step=4000
+#v2loss_pf_22k80b_bs128_ss16k_novn_cgn10|configs_poc/v2loss_22k80b_bs128_ss16k.json|datasets/adlr_audio_speech_pflow.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=10 warmup_step=4000 normalize_volume=False
+#v2loss_pf_22k80b_bs256_novn_cgn10|configs_poc/v2loss_22k80b_bs256.json|datasets/adlr_audio_speech_pflow.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=10 warmup_step=4000 normalize_volume=False
+#v2loss_alm_22k80b_bs128_ss16k_novn_cgn100|configs_poc/v2loss_22k80b_bs128_ss16k.json|datasets/audiolm.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=100 warmup_step=4000 normalize_volume=False
+#v2loss_alm_22k80b_bs256_novn_cgn100|configs_poc/v2loss_22k80b_bs256.json|datasets/audiolm.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=100 warmup_step=4000 normalize_volume=False
+#all_22k80b_bs128_ss16k_cgn100|configs_poc/22k80b_bs128_ss16k.json|datasets/adlr_audio_everything.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=100 warmup_step=4000
+#all_22k80b_bs128_ss16k_novn_cgn100|configs_poc/22k80b_bs128_ss16k.json|datasets/adlr_audio_everything.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=100 warmup_step=4000 normalize_volume=False
+#all_v2loss_22k80b_bs128_ss16k_cgn100|configs_poc/v2loss_22k80b_bs128_ss16k.json|datasets/adlr_audio_everything.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=100 warmup_step=4000
+#all_v2loss_22k80b_bs128_ss16k_cgn500|configs_poc/v2loss_22k80b_bs128_ss16k.json|datasets/adlr_audio_everything.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=500 warmup_step=4000
+#all_v2loss_22k80b_bs128_ss16k_cgn500_lm30|configs_poc/v2loss_22k80b_bs128_ss16k.json|datasets/adlr_audio_everything.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=500 warmup_step=5000 lambda_melloss=30
+#all_v2loss_22k80b_bs128_ss16k_cgn500_lm45|configs_poc/v2loss_22k80b_bs128_ss16k.json|datasets/adlr_audio_everything.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=500 warmup_step=5000 lambda_melloss=45
+#v2loss_pf_22k192b_bs128_ss16k_cgn500|configs_poc/v2loss_22k192b_bs128_ss16k.json|datasets/adlr_audio_speech_pflow.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=500 warmup_step=5000
+#v2loss_alm_22k192b_bs128_ss16k_cgn500|configs_poc/v2loss_22k192b_bs128_ss16k.json|datasets/audiolm.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=500 warmup_step=5000
+#v2loss_all_22k192b_bs128_ss16k_cgn500|configs_poc/v2loss_22k192b_bs128_ss16k.json|datasets/adlr_audio_everything.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=500 warmup_step=5000
+#pf_22k192b_bs128_ss16k_cgn500|configs_poc/22k192b_bs128_ss16k.json|datasets/adlr_audio_speech_pflow.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=500 warmup_step=5000
+#alm_22k192b_bs128_ss16k_cgn500|configs_poc/22k192b_bs128_ss16k.json|datasets/audiolm.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=500 warmup_step=5000
+#all_22k192b_bs128_ss16k_cgn500|configs_poc/22k192b_bs128_ss16k.json|datasets/adlr_audio_everything.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=500 warmup_step=5000
+#v3loss_alm_22k192b_bs128_ss16k_cgn500|configs_poc/v3loss_22k192b_bs128_ss16k.json|datasets/audiolm.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=500 warmup_step=5000
+#v3loss_all_22k192b_bs128_ss16k_cgn500|configs_poc/v3loss_22k192b_bs128_ss16k.json|datasets/adlr_audio_everything.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=500 warmup_step=5000
+##########################################
+# moved from 24k
+##########################################
+#v4loss_all_24k100b_bs128_ss16k_cgn500|configs_poc/v2loss_24k100b_bs128_ss16k.json|datasets/adlr_audio_everything_24k.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=500 warmup_step=5000 mcbd_apply_large_kernel_to_freq=true
+#v3loss_pf_24k100b_bs128_ss16k_cgn500|configs_poc/v3loss_24k100b_bs128_ss16k.json|datasets/adlr_audio_speech_pflow_24k.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=500 warmup_step=5000
+#v3loss_alm_24k100b_bs128_ss16k_cgn500|configs_poc/v3loss_24k100b_bs128_ss16k.json|datasets/audiolm_24k.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=500 warmup_step=5000
+#alm_24k100b_bs128_ss16k_cgn500|configs_poc/24k100b_bs128_ss16k.json|datasets/audiolm_24k.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=500 warmup_step=5000
+#pf_24k100b_bs128_ss16k_cgn500|configs_poc/24k100b_bs128_ss16k.json|datasets/adlr_audio_speech_pflow_24k.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=500 warmup_step=5000
+#v2loss_pf_24k100b_bs128_ss16k_cgn500|configs_poc/v2loss_24k100b_bs128_ss16k.json|datasets/adlr_audio_speech_pflow_24k.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=500 warmup_step=5000
+#v2loss_alm_24k100b_bs128_ss16k_cgn500|configs_poc/v2loss_24k100b_bs128_ss16k.json|datasets/audiolm_24k.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=500 warmup_step=5000
+#all_v2loss_24k100b_bs128_ss16k_cgn500|configs_poc/v2loss_24k100b_bs128_ss16k.json|datasets/adlr_audio_everything_24k.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=500 warmup_step=5000
+#all_v2loss_24k100b_bs128_ss16k_cgn500_lm30|configs_poc/v2loss_24k100b_bs128_ss16k.json|datasets/adlr_audio_everything_24k.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=500 warmup_step=5000 lambda_melloss=30
+#all_v2loss_24k100b_bs128_ss16k_cgn500_lm45|configs_poc/v2loss_24k100b_bs128_ss16k.json|datasets/adlr_audio_everything_24k.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=500 warmup_step=5000 lambda_melloss=45
+#dac_ltr_24k_bs160_ss20k_nq4|configs_poc/dac_24k_bs160_ss20k_nq1.json|datasets/libritts_r_24k.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=500 warmup_step=5000 codec_model_n_quantizers=4
+#dac_ltr_24k_bs160_ss20k_nq8|configs_poc/dac_24k_bs160_ss20k_nq1.json|datasets/libritts_r_24k.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=500 warmup_step=5000 codec_model_n_quantizers=8
+#dac_ltr_24k_bs160_ss20k_nq32|configs_poc/dac_24k_bs160_ss20k_nq1.json|datasets/libritts_r_24k.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=500 warmup_step=5000 codec_model_n_quantizers=32
+#dac_ltr_24k_bs160_ss20k_nqr|configs_poc/dac_24k_bs160_ss20k_nq1.json|datasets/libritts_r_24k.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=1 warmup_step=5000 codec_model_n_quantizers=random
+#dac_v2loss_ltr_24k_bs160_ss20k_nq4|configs_poc/dac_v2loss_24k_bs160_ss20k_nq1.json|datasets/libritts_r_24k.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=1 warmup_step=5000 codec_model_n_quantizers=4
+#dac_v2loss_ltr_24k_bs160_ss20k_nq8|configs_poc/dac_v2loss_24k_bs160_ss20k_nq1.json|datasets/libritts_r_24k.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=1 warmup_step=5000 codec_model_n_quantizers=8
+#dac_v2loss_ltr_24k_bs160_ss20k_nq32|configs_poc/dac_v2loss_24k_bs160_ss20k_nq1.json|datasets/libritts_r_24k.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=1 warmup_step=5000 codec_model_n_quantizers=32
+#dac_v2loss_ltr_24k_bs160_ss20k_nqr|configs_poc/dac_v2loss_24k_bs160_ss20k_nq1.json|datasets/libritts_r_24k.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=500 warmup_step=5000 codec_model_n_quantizers=random
+#all_v3loss_24k100b_bs128_ss16k_cgn500_lm30|configs_poc/v3loss_24k100b_bs128_ss16k.json|datasets/adlr_audio_everything_24k.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=500 warmup_step=5000 lambda_melloss=30
+#all_v3loss_24k100b_bs128_ss16k_cgn500_lm45|configs_poc/v3loss_24k100b_bs128_ss16k.json|datasets/adlr_audio_everything_24k.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=500 warmup_step=5000 lambda_melloss=45
+##########################################
+# moved from 44k
+##########################################
+#v4loss_all_44k80b_bs128_ss16k_cgn500|configs_poc/v2loss_44k100b_bs128_ss16k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|num_mels=80 num_workers=4 clip_grad_norm=500 warmup_step=5000 mcbd_apply_large_kernel_to_freq=true
+#v4loss_all_44k100b_bs128_ss16k_cgn500|configs_poc/v2loss_44k100b_bs128_ss16k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|num_mels=100 num_workers=4 clip_grad_norm=500 warmup_step=5000 mcbd_apply_large_kernel_to_freq=true
+#v4loss_all_44k128b_bs128_ss16k_cgn500|configs_poc/v2loss_44k100b_bs128_ss16k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|num_mels=128 num_workers=4 clip_grad_norm=500 warmup_step=5000 mcbd_apply_large_kernel_to_freq=true
+#v4loss_all_44k192b_bs128_ss16k_cgn500|configs_poc/v2loss_44k100b_bs128_ss16k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|num_mels=192 num_workers=4 clip_grad_norm=500 warmup_step=5000 mcbd_apply_large_kernel_to_freq=true

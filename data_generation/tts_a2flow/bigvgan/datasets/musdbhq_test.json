@@ -1,0 +1,17 @@
+{
+    "data": {
+      "dur_min": 0,
+      "dur_max": 600,
+      "sampling_rate": 22050,
+        "validation_files": {
+            "musdbhq": {
+                "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_music/datasets/musdbhq",
+                "audio_dir": "",
+                "filelist": "file_list_22k_test.txt",
+                "n_max_files": -1,
+                "language": "nonspeech",
+                "n_repeats": 0
+            }
+        }    
+    }
+}

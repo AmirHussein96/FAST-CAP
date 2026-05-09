@@ -1,0 +1,121 @@
+{
+    "de_DE": {
+        "symbol_set": "radmmm_phonemizer_marker_segregated",
+        "cleaner_name": ["basic_cleaners"],
+        "g2p_type": "dictionary",
+        "separator": "  ",
+        "pronunciation_dict_path": "/lustre/fsw/portfolios/edgeai/users/marianag/aa_share-a2f_inference/a2flow-inference/tts_text_processing/prondicts/de_de_nv240828.dict"
+    },
+    "du_NL": {
+        "symbol_set": "multilingual",
+        "cleaner_name": ["basic_cleaners"]
+    },
+    "en": {
+        "symbol_set": "radmmm_phonemizer_marker_segregated",
+        "cleaner_name": ["basic_cleaners"]
+    },
+    "en_US": {
+        "symbol_set": "radmmm_phonemizer_marker_segregated",
+        "cleaner_name": ["basic_cleaners"],
+        "g2p_type": "dictionary",
+        "separator": "  ",
+        "pronunciation_dict_path": "/lustre/fsw/portfolios/edgeai/users/marianag/aa_share-a2f_inference/a2flow-inference/tts_text_processing/prondicts/en_US_g2p_beta1.0.dict"
+    },
+    "en_UK": {
+        "symbol_set": "radmmm_phonemizer_marker_segregated",
+        "cleaner_name": ["basic_cleaners"]
+    },
+    "en_MN": {
+        "symbol_set": "radmmm_phonemizer_marker_segregated",
+        "cleaner_name": ["basic_cleaners"]
+    },
+    "es_CO": {
+        "symbol_set": "radmmm_phonemizer_marker_segregated",
+        "cleaner_name": ["basic_cleaners"],
+        "g2p_type": "dictionary",
+        "pronunciation_dict_path": "/lustre/fsw/portfolios/edgeai/users/marianag/aa_share-a2f_inference/a2flow-inference/tts_text_processing/prondicts/es_US_g2p_beta1.0.dict"
+    },
+    "es_AR": {
+        "symbol_set": "radmmm_phonemizer_marker_segregated",
+        "cleaner_name": ["basic_cleaners"]
+    },
+    "es_CL": {
+        "symbol_set": "radmmm_phonemizer_marker_segregated",
+        "cleaner_name": ["basic_cleaners"]
+    },
+    "es_PE": {
+        "symbol_set": "radmmm_phonemizer_marker_segregated",
+        "cleaner_name": ["basic_cleaners"]
+    },
+    "es_PR": {
+        "symbol_set": "radmmm_phonemizer_marker_segregated",
+        "cleaner_name": ["basic_cleaners"]
+    },
+    "es_VE": {
+        "symbol_set": "radmmm_phonemizer_marker_segregated",
+        "cleaner_name": ["basic_cleaners"]
+    },
+    "es_ES": {
+        "symbol_set": "radmmm_phonemizer_marker_segregated",
+        "cleaner_name": ["basic_cleaners"],
+        "g2p_type": "dictionary",
+        "pronunciation_dict_path": "/lustre/fsw/portfolios/edgeai/users/marianag/aa_share-a2f_inference/a2flow-inference/tts_text_processing/prondicts/es_ES_g2p_beta1.0.dict"
+    },
+    "es_MX": {
+        "symbol_set": "radmmm_phonemizer_marker_segregated",
+        "cleaner_name": ["basic_cleaners"],
+        "g2p_type": "dictionary",
+        "pronunciation_dict_path": "/lustre/fsw/portfolios/edgeai/users/marianag/aa_share-a2f_inference/a2flow-inference/tts_text_processing/prondicts/es_US_g2p_beta1.0.dict"
+    },
+    "fr_FR": {
+        "symbol_set": "radmmm_phonemizer_marker_segregated",
+        "cleaner_name": ["basic_cleaners"]
+    },
+    "hi": {
+        "symbol_set": "radmmm_phonemizer_marker_segregated",
+        "cleaner_name": ["basic_cleaners"]
+    },
+    "hi_HI": {
+        "symbol_set": "radmmm_phonemizer_marker_segregated",
+        "cleaner_name": ["basic_cleaners"]
+    },
+    "mar_MAR": {
+        "symbol_set": "radmmm_phonemizer_marker_segregated",
+        "cleaner_name": ["basic_cleaners"]
+    },
+    "te_TE": {
+        "symbol_set": "radmmm_phonemizer_marker_segregated",
+        "cleaner_name": ["basic_cleaners"]
+    },
+    "hi_CH": {
+        "symbol_set": "radmmm_phonemizer_marker_segregated",
+        "cleaner_name": ["basic_cleaners"]
+    },
+    "en_IN": {
+        "symbol_set": "radmmm_phonemizer_marker_segregated",
+        "cleaner_name": ["basic_cleaners"]
+    },
+    "ben_BEN": {
+        "symbol_set": "radmmm_phonemizer_marker_segregated",
+        "cleaner_name": ["basic_cleaners"]
+    },
+    "kan_KAN": {
+        "symbol_set": "radmmm_phonemizer_marker_segregated",
+        "cleaner_name": ["basic_cleaners"]
+    },
+    "it_IT": {
+        "symbol_set": "radmmm_phonemizer_marker_segregated",
+        "cleaner_name": ["basic_cleaners"],
+        "g2p_type": "dictionary",
+        "separator": "  ",
+        "pronunciation_dict_path": "/lustre/fsw/portfolios/edgeai/users/marianag/aa_share-a2f_inference/a2flow-inference/tts_text_processing/prondicts/it_IT_g2p_v1.0.dict"
+    },
+    "pl_PL": {
+        "symbol_set": "multilingual",
+        "cleaner_name": ["basic_cleaners"]
+    },
+    "pt_BR": {
+        "symbol_set": "radmmm_phonemizer_marker_segregated",
+        "cleaner_name": ["basic_cleaners"]
+    }
+}

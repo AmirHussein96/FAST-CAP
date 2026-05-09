@@ -1,0 +1,214 @@
+model:
+  pretrained_llm: Qwen/Qwen2.5-1.5B-Instruct
+  # pretrained_llm: TinyLlama/TinyLlama_v1.1
+  pretrained_audio_codec: Low_Frame-rate_Speech_Codec++_nemo_last_checkpoint/ml-model-NanoCodec-13_codebooks_2016_codes_1.78kbps_12.5FPS_aug_grad_clip_skip_nan/checkpoints/Low_Frame-rate_Speech_Codec++.nemo
+  pretrained_asr: pretrained_models/asr/mml-en-fr-es-de/en-fr-es-de.nemo
+  scoring_asr: stt_en_fastconformer_transducer_large
+
+  pretrained_weights: true
+  audio_loss_weight: 4
+  text_loss_weight: 3
+  
+  # Regexp (re.compile) patterns matching parameters to be frozen.
+  freeze_params:
+    - "^audio_codec\\..+$"  # Keep audio codec frozen as it only provides supervision for training.
+    - "^speech_generation\\.speaker_encoder\\..+$" # Keep speaker_encoder frozen
+    #- "^perception\\.encoder\\..+$"
+    #- "^llm\\..+$"
+  prevent_freeze_params: []  # Use to make specific submodules trainable; overrides freeze_params
+
+  duplex_user_channel_weight: 1.0
+  hidden_pooling_factor: 2
+
+  audio_save_path: ${exp_manager.explicit_log_dir}/pred_audios
+
+  perception:
+     target: nemo.collections.multimodal.speech_llm.modules.perception_modules.AudioPerceptionModule
+     use_multi_layer_feat: false
+     add_sep: true
+     is_canary: true
+     preprocessor:
+       normalize: 'NA'
+
+     encoder:
+       self_attention_model: 'rel_pos' 
+       att_context_size: [70, 0]
+       conv_context_size: causal
+       conv_norm_type: layer_norm
+
+     modality_adapter:
+       _target_: nemo.collections.asr.modules.ConformerEncoder
+       feat_in: 512
+       feat_out: -1 # you may set it if you need different output size other than the default d_model
+       n_layers: 2
+       d_model: 512
+       subsampling: dw_striding # vggnet, striding, stacking or stacking_norm, dw_striding
+       subsampling_factor: 1 # must be power of 2 for striding and vggnet
+       subsampling_conv_channels: 256 # set to -1 to make it equal to the d_model
+       causal_downsampling: true
+       ff_expansion_factor: 4
+       self_attention_model: rel_pos # rel_pos or abs_pos
+       n_heads: 8 # may need to be lower for smaller d_models
+       # [left, right] specifies the number of steps to be seen from left and right of each step in self-attention
+       att_context_size: [70, 0] # -1 means unlimited context
+       att_context_style: chunked_limited # regular or chunked_limited
+       xscaling: true # scales up the input embeddings by sqrt(d_model)
+       untie_biases: true # unties the biases of the TransformerXL layers
+       pos_emb_max_len: 5000
+       conv_kernel_size: 9
+       conv_norm_type: layer_norm # batch_norm or layer_norm or groupnormN (N specifies the number of groups)
+       # conv_context_size can be"causal" or a list of two integers while conv_context_size[0]+conv_context_size[1]+1==conv_kernel_size
+       # null means [(kernel_size-1)//2, (kernel_size-1)//2], and 'causal' means [(kernel_size-1), 0]
+       conv_context_size: causal
+       ### regularization
+       dropout: 0 # The dropout used in most of the Conformer Modules
+       dropout_pre_encoder: 0 # The dropout used before the encoder
+       dropout_emb: 0.0 # The dropout used for embeddings
+       dropout_att: 0 # The dropout for multi-headed attention modules
+
+     spec_augment:
+      _target_: nemo.collections.asr.modules.SpectrogramAugmentation
+      freq_masks: 2 # set to zero to disable it
+      time_masks: 10 # set to zero to disable it
+      freq_width: 27
+      time_width: 0.05
+
+  speech_decoder:
+    n_layers: 12
+    d_model: 768
+    d_ffn: 3072
+    sa_n_heads: 12
+    kernel_size: 3
+    p_dropout: 0.1
+    p_dropout_out: 0.0
+    has_xattn: false
+    xa_d_memory: 768
+    xa_n_heads: 12
+    is_causal: true
+    apply_norm_to_cond: true
+    apply_norm_out: true
+    max_length_causal_mask: 5000
+    cond_on_prev_audio_tokens: True
+    detach_input: False
+    use_learnable_pos_emb: True
+    cond_on_modality_adapter_emb: False
+    cond_on_char_embedding: True
+    cond_on_llm_latent: False
+    use_speaker_encoder: true
+
+
+  optimizer:
+    _target_: torch.optim.AdamW
+    lr: 1e-4 #3e-4, try 5e-5
+    betas: [0.9, 0.98]
+    weight_decay: 0
+    foreach: true # set to false if having issues with tensor-parallelism
+
+  lr_scheduler:
+    _target_: nemo.core.optim.lr_scheduler.InverseSquareRootAnnealing
+    warmup_steps: 4000 # try 2500
+    min_lr: 1e-6
+    max_steps: ${trainer.max_steps}
+
+trainer:
+  devices: -1
+  accelerator: gpu
+  num_nodes: 1
+  precision: bf16-true
+  logger: False # logger provided by exp_manager
+  enable_checkpointing: False
+  use_distributed_sampler: False
+  max_steps: 100000
+  val_check_interval: 1000
+  limit_train_batches: ${trainer.val_check_interval}  # an "epoch"
+  limit_val_batches: 2
+  log_every_n_steps: 20
+  num_sanity_val_steps: 0
+  gradient_clip_val: 1.0
+  accumulate_grad_batches: 1
+  strategy:
+    _target_: lightning.pytorch.strategies.DDPStrategy
+    gradient_as_bucket_view: true
+    find_unused_parameters: true
+
+data:
+  frame_length: 0.08
+  source_sample_rate: 16000
+  target_sample_rate: 22050
+  input_roles: ["user", "User"]
+  output_roles: ["agent", "Assistant", "assistant","Agent"]
+  add_delay_token: false
+
+  train_ds:
+    sample_rate: ${data.target_sample_rate}
+    multi_config: true
+    shuffle: true
+    sampler_fusion: randomized_round_robin
+    seed: 42
+    shard_seed: "trng"
+    sampler_weights:
+      riva_es: 1.0
+    riva_es:
+      input_cfg: /lustre/fsw/portfolios/edgeai/users/amhussein/s2s/configs/data/riva_multiling_st_concat_v_mfa_target_aligned.yaml
+      bucket_buffer_size: 10000
+      shuffle_buffer_size: 10000
+      num_workers: 8
+      pin_memory: true
+      max_duration: 60
+      min_duration: 1
+      num_buckets: 30
+      bucket_duration_bins: [5.33,6.27,6.96,7.54,8.07,8.55,8.99,9.39,9.76,10.14,10.54,10.99,11.49,12.04,12.64,13.28,13.96,14.69,15.48,16.32,17.25,18.28,19.39,20.65,22.14,24.01,26.34,29.21,32.79]
+      batch_duration: 400 
+      use_bucketing: true
+      seed: 'trng'
+
+
+  validation_ds:
+    datasets:
+      # fr_dev:
+      #   shar_path: /lustre/fsw/portfolios/edgeai/users/amhussein/lhotse_data_eval_mfa/covost_v2/fr-FR_en-US
+      # es_dev:
+      #   shar_path: /lustre/fsw/portfolios/edgeai/users/amhussein/lhotse_data_eval_mfa/covost_v2/es-US_en-US
+      # de_dev:
+      #   shar_path: /lustre/fsw/portfolios/edgeai/users/amhussein/lhotse_data_eval_mfa/covost_v2/de-DE_en-US
+      cvss-FrTest:
+        shar_path: /lustre/fsw/portfolios/edgeai/users/amhussein/lhotse_data_eval_mfa/cvss/fr-FR_en-US/test
+      cvss-EsTest:
+        shar_path: /lustre/fsw/portfolios/edgeai/users/amhussein/lhotse_data_eval_mfa/cvss/es-US_en-US/test
+      cvss-DeTest:
+        shar_path: /lustre/fsw/portfolios/edgeai/users/amhussein/lhotse_data_eval_mfa/cvss/de-DE_en-US/test 
+        
+    sample_rate: ${data.target_sample_rate}
+    batch_size: 64  #4
+    seed: 42
+    shard_seed: "randomized"
+
+exp_manager:
+   exp_dir: null
+   explicit_log_dir: /lustre/fsw/portfolios/convai/users/ecasanova/S2S-Duplex-new-codebase/
+   name: duplex_s2s_decoder_v2_all_synthetic_data_char_emb_llm_latent_modality_adptor_emb
+   create_tensorboard_logger: false
+   create_checkpoint_callback: true
+   use_datetime_version: true
+   max_time_per_run: 00:03:50:00
+
+   resume_from_checkpoint: null # The path to a checkpoint file to continue the training, restores the whole state including the epoch, step, LR schedulers, apex, etc.
+   # you need to set these two to True to continue the training
+   resume_if_exists: true
+   resume_ignore_no_checkpoint: true
+
+   # You may use this section to create a W&B logger
+   create_wandb_logger: true
+   wandb_logger_kwargs:
+     name: development-run
+     project: salm_s2s_speech_decoder_v2_char_tokens
+     resume: true
+
+   checkpoint_callback_params:
+     filename: "{step}"
+     monitor: val_asr_bleu
+     mode: max
+     every_n_train_steps: null
+     every_n_epochs: 1
+     save_top_k: 1
+     always_save_nemo: false

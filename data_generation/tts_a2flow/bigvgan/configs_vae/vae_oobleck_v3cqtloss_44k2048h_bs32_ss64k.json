@@ -1,0 +1,68 @@
+{
+    "model_type": "vae",
+    "use_vae_reparameterize_v2": true,
+    
+    "num_gpus": 0,
+    "batch_size": 32,
+    "learning_rate": 0.0001,
+    "warmup_step": 10000,
+    "adam_b1": 0.8,
+    "adam_b2": 0.99,
+    "clip_grad_norm": 1000,
+    "lr_decay": 0.9999996,
+    "seed": 1234,
+
+    "sampling_rate": 44100,
+    "fmin": 0,
+    "fmax": null,
+    "fmax_for_loss": null,
+    "normalize_volume": true,
+
+    "segment_size": 65536,
+    "num_mels": 128,
+    "num_linears": 1025,
+    "n_fft": 2048,
+    "hop_size": 2048,
+    "win_size": 2048,
+
+    "use_wav_as_input": true,
+
+    "enc_type": "oobleck",
+    "dec_type": "oobleck",
+    "enc_dim": 128,
+    "vocoder_input_dim": 64,
+    "dec_dim": 128,
+    "c_mults": [1, 2, 4, 8, 16],
+    "strides": [2, 4, 4, 8, 8],
+
+    "use_snake": true,
+    "use_nearest_upsample": false,
+    "anti_aliasing": false,
+    "use_tanh_at_final": false,
+    
+    "mpd_reshapes": [2, 3, 5, 7, 11],
+    "use_spectral_norm": false,
+    "mpd_channel_mult": 1,
+    "use_dac_mrd_instead_of_original": true,
+    "add_cqtd_to_mrd": true,
+    "use_dac_melloss_instead_of_l1": true,
+
+    "use_sdstft_loss": true,
+    "mrstft_config": {
+        "fft_sizes": [2048, 1024, 512, 256, 128, 64, 32],
+        "hop_sizes": [512, 256, 128, 64, 32, 16, 8],
+        "win_lengths": [2048, 1024, 512, 256, 128, 64, 32],
+        "perceptual_weighting": true
+    },
+
+    "lambda_melloss": 15,
+    "lambda_sdstftloss": 1,
+    "lambda_klloss": 0.000001,
+
+    "num_workers": 4,
+    "dist_config": {
+        "dist_backend": "nccl",
+        "dist_url": "tcp://localhost:54321",
+        "world_size": 1
+    }
+}

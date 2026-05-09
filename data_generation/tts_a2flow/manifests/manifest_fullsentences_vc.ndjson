@@ -1,0 +1,2 @@
+{"prompt_path": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_speech/datasets/LibriTTS/22khz/dev-other/8254/84205/8254_84205_000003_000000.wav", "src_path": "/lustre/fsw/portfolios/adlr/users/rafaelvalle/repos/a2flow-inference/samples/AudioLM-Auditions/KAT_EmmaMaidenberg_8.wav"}
+{"prompt_path": "/lustre/fsw/portfolios/adlr/users/rafaelvalle/repos/a2flow-inference/samples/AudioLM-Auditions/KAT_EmmaMaidenberg_8.wav", "src_path": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_speech/datasets/LibriTTS/22khz/dev-other/8254/84205/8254_84205_000003_000000.wav"}

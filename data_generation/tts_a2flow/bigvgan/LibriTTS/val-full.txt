@@ -1,0 +1,12 @@
+train-clean-100/103/1241/103_1241_000000_000001.wav|matthew Cuthbert is surprised
+train-clean-100/1594/135914/1594_135914_000033_000001.wav|He told them, that having taken refuge in a small village, he there fell sick; that some charitable peasants had taken care of him, but finding he did not recover, a camel driver had undertaken to carry him to the hospital at Bagdad.
+train-clean-100/233/155990/233_155990_000018_000002.wav|I did, however, receive aid from the Emperor of Germany.
+train-clean-100/3240/131231/3240_131231_000041_000003.wav|Some persons, thinking them to be sea fishes, placed them in salt water, according to mr Roberts.
+train-clean-100/40/222/40_222_000026_000000.wav|"No, read it yourself," cried Catherine, whose second thoughts were clearer.
+train-clean-100/4406/16882/4406_16882_000014_000002.wav|Then they set me upon a horse with my wounded child in my lap, and there being no furniture upon the horse's back, as we were going down a steep hill we both fell over the horse's head, at which they, like inhumane creatures, laughed, and rejoiced to see it, though I thought we should there have ended our days, as overcome with so many difficulties.
+train-clean-100/5393/19218/5393_19218_000115_000000.wav|"Where is it going then?"
+train-clean-100/6147/34606/6147_34606_000013_000008.wav|One was "a dancing master;" that is to say he made the rustics frisk about by pricking the calves of their legs with the point of his sword.
+train-clean-100/6848/76049/6848_76049_000003_000007.wav|But suppose she was not all ordinary female person....
+train-clean-100/7505/258964/7505_258964_000026_000007.wav|During the Boer War horses and mules rose in price in the United States on account of British purchases.
+train-clean-100/831/130739/831_130739_000015_000000.wav|But enough of these revelations.
+train-clean-100/887/123291/887_123291_000028_000000.wav|Here the Professor laid hold of the fossil skeleton, and handled it with the skill of a dexterous showman.

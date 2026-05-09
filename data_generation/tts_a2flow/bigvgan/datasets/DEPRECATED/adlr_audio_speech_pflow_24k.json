@@ -1,0 +1,144 @@
+{
+    "data": {
+        "dur_min": 2,
+        "dur_max": 99,
+        "sampling_rate": 24000,
+        "training_files": {
+            "LibriTTS-Clean-100": {
+                "basedir": "datasets/LibriTTS",
+                "audio_dir": "24khz",
+                "filelist": "train-clean-100_audiopath_text_sid_emotion_duration_train_filelist.txt",
+                "n_max_files": -1,
+                "language": "en_US"
+            },
+            "LibriTTS-Clean-360": {
+                "basedir": "datasets/LibriTTS",
+                "audio_dir": "24khz",
+                "filelist": "train-clean-360_audiopath_text_sid_emotion_duration_train_filelist.txt",
+                "n_max_files": -1,
+                "language": "en_US"
+            },
+            "LibriTTS-Other-500": {
+                "basedir": "datasets/LibriTTS",
+                "audio_dir": "24khz",
+                "filelist": "train-other-500_audiopath_text_sid_emotion_duration_train_filelist.txt",
+                "n_max_files": -1,
+                "language": "en_US"
+            },
+            "LibriVox-English": {
+                "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_speech/datasets/LibriLight/English",
+                "audio_dir": "22khz",
+                "filelist": "English_metadata_nolibrispeechtestclean_2023-08-21.ndjson",
+                "n_max_files": -1,
+                "language": "en_US",
+                "n_repeats": 0
+            },
+            "LibriVox-French": {
+                "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_speech/datasets/LibriLight/French",
+                "audio_dir": "raw_mp3",
+                "filelist": "French_metadata.ndjson",
+                "n_max_files": -1,
+                "language": "fr_FR",
+                "n_repeats": 0
+            },
+            "LibriVox-German": {
+                "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_speech/datasets/LibriLight/German",
+                "audio_dir": "raw_mp3",
+                "filelist": "German_metadata.ndjson",
+                "n_max_files": -1,
+                "language": "de_DE",
+                "n_repeats": 0
+            },
+            "LibriVox-Italian": {
+                "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_speech/datasets/LibriLight/Italian",
+                "audio_dir": "raw_mp3",
+                "filelist": "Italian_metadata.ndjson",
+                "n_max_files": -1,
+                "language": "pt_BR",
+                "n_repeats": 0
+            },
+            "LibriVox-Portuguese": {
+                "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_speech/datasets/LibriLight/Portuguese",
+                "audio_dir": "raw_mp3",
+                "filelist": "Portuguese_metadata.ndjson",
+                "n_max_files": -1,
+                "language": "pt_BR",
+                "n_repeats": 0
+            },
+            "LibriVox-Spanish": {
+                "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_speech/datasets/LibriLight/Spanish",
+                "audio_dir": "raw_mp3",
+                "filelist": "Spanish_metadata.ndjson",
+                "n_max_files": -1,
+                "language": "es_ES",
+                "n_repeats": 0
+            },
+            "CML-Dataset-dutch": {
+                "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_speech/datasets/CML-Dataset/cml_tts_dataset_dutch_v0.1",
+                "audio_dir": "24khz",
+                "filelist": "train_filtered_levenshtein0p9.ndjson",
+                "n_max_files": -1,
+                "language": "de_DE",
+                "n_repeats": 0
+            },
+            "CML-Dataset-french": {
+                "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_speech/datasets/CML-Dataset/cml_tts_dataset_french_v0.1",
+                "audio_dir": "24khz",
+                "filelist": "train_filtered_levenshtein0p9.ndjson",
+                "n_max_files": -1,
+                "language": "fr_FR",
+                "n_repeats": 0
+            },
+            "CML-Dataset-german": {
+                "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_speech/datasets/CML-Dataset/cml_tts_dataset_german_v0.1",
+                "audio_dir": "24khz",
+                "filelist": "train_filtered_levenshtein0p9.ndjson",
+                "n_max_files": -1,
+                "language": "fr_FR",
+                "n_repeats": 0
+            },
+            "CML-Dataset-italian": {
+                "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_speech/datasets/CML-Dataset/cml_tts_dataset_italian_v0.1",
+                "audio_dir": "24khz",
+                "filelist": "train_filtered_levenshtein0p9.ndjson",
+                "n_max_files": -1,
+                "language": "it_IT",
+                "n_repeats": 0
+            },
+            "CML-Dataset-polish": {
+                "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_speech/datasets/CML-Dataset/cml_tts_dataset_polish_v0.1",
+                "audio_dir": "24khz",
+                "filelist": "train_filtered_levenshtein0p9.ndjson",
+                "n_max_files": -1,
+                "language": "pl_PL",
+                "n_repeats": 0
+            },
+            "CML-Dataset-portuguese": {
+                "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_speech/datasets/CML-Dataset/cml_tts_dataset_portuguese_v0.1",
+                "audio_dir": "24khz",
+                "filelist": "train_filtered_levenshtein0p9.ndjson",
+                "n_max_files": -1,
+                "language": "pt_PT",
+                "n_repeats": 0
+            },
+            "CML-Dataset-spanish": {
+                "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_speech/datasets/CML-Dataset/cml_tts_dataset_spanish_v0.1",
+                "audio_dir": "24khz",
+                "filelist": "train_filtered_levenshtein0p9.ndjson",
+                "n_max_files": -1,
+                "language": "es_ES",
+                "n_repeats": 0
+            }
+        },
+        "validation_files": {
+            "LibriTTS-Dev": {
+                "basedir": "datasets/LibriTTS",
+                "audio_dir": "24khz",
+                "filelist": "dev_audiopath_text_speaker_emotion_duration_filelist.txt",
+                "n_max_files": 128,
+                "language": "en_US",
+                "n_repeats": 0
+            }
+        }
+    }
+}

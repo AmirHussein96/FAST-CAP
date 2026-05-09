@@ -1,0 +1,24 @@
+{
+    "model_type": "vae",
+    "use_vae_reparameterize_v2": true,
+    
+    "use_wav_as_input": true,
+
+    "sampling_rate": 44100,
+    "stereo": true,
+
+    "enc_type": "oobleck",
+    "dec_type": "oobleck",
+    "enc_dim": 128,
+    "vocoder_input_dim": 64,
+    "dec_dim": 128,
+    "c_mults": [1, 2, 4, 8, 16],
+    "strides": [2, 4, 4, 8, 8],
+
+    "use_snake": true,
+    "use_nearest_upsample": false,
+    "anti_aliasing": false,
+    "causal": false,
+    "padding_mode": "zeros",
+    "use_tanh_at_final": false
+}

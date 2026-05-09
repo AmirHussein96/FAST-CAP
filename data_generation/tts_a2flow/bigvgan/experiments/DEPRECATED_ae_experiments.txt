@@ -1,0 +1,103 @@
+##########################################
+# syntax: job_name|config_filepath|dataset_config_filepath|launch_params|hparams (num_workers=4 as placeholder)
+# invokes train.py --config {config_filepath} --dataset_config {dataset_config_filepath} --checkpoint_path {output_dir} --params {params}
+# --outfile of submit_job auto-mapped to {job_name}/job.log
+##########################################
+##########################################
+# sanity check: same vocoder run
+##########################################
+#voc_v3loss_22k80b|configs_poc/v3loss_22k80b_bs128_ss16k.json|datasets/adlr_audio_everything.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=500
+#voc_v3loss_22k80b_cgn1000|configs_poc/v3loss_22k80b_bs128_ss16k.json|datasets/adlr_audio_everything.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=1000
+##########################################
+# sanity check: linear layer only run, skip encoder
+##########################################
+#ae_SKIPENC_v3loss_22k80b_vd128|configs_ae/ae_convnext_v3loss_22k80b_bs128_ss16k.json|datasets/adlr_audio_everything.json|--gpu 8 --nodes 1|num_workers=4 skip_encoder=true vocoder_input_dim=128
+##########################################
+# plain autoencoder exp : no restriction on latents, just good old AE with mel-in, wav-out. vocoder_input_dim sweep, how large dim is enough?
+# this corresponds to EVA-GAN, which showed that just adding convnext as prenet significantly boosts the vocoder quality
+##########################################
+#ae_convnext_all_v3loss_22k80b_vd128|configs_ae/ae_convnext_v3loss_22k80b_bs128_ss16k.json|datasets/adlr_audio_everything.json|--gpu 8 --nodes 1|num_workers=4 vocoder_input_dim=128
+#ae_wavenet_all_v3loss_22k80b_vd128|configs_ae/ae_wavenet_v3loss_22k80b_bs128_ss16k.json|datasets/adlr_audio_everything.json|--gpu 8 --nodes 1|num_workers=4 vocoder_input_dim=128
+##########################################
+# vae exp : convnext performs bad (idk why), kl term beta 1e-6 seems sweet spot. latent dim=64 or 128? whether to revert clip_grad_norm back to 1000 if it's stable
+##########################################
+#vae_convnext_all_v3loss_22k80b_vd128_kl1e-6|configs_vae/vae_convnext_v3loss_22k80b_bs128_ss16k.json|datasets/adlr_audio_everything.json|--gpu 8 --nodes 1|num_workers=4 vocoder_input_dim=128 lambda_klloss=0.000001
+#vae_wavenet_all_v3loss_22k80b_vd64_kl1e-6|configs_vae/vae_wavenet_v3loss_22k80b_bs128_ss16k.json|datasets/adlr_audio_everything.json|--gpu 8 --nodes 1|num_workers=4 vocoder_input_dim=64 lambda_klloss=0.000001
+#vae_wavenet_all_v3loss_22k80b_vd64_kl1e-6_cgn1000|configs_vae/vae_wavenet_v3loss_22k80b_bs128_ss16k.json|datasets/adlr_audio_everything.json|--gpu 8 --nodes 1|num_workers=4 vocoder_input_dim=64 lambda_klloss=0.000001 clip_grad_norm=1000
+#vae_wavenet_all_v3loss_22k80b_vd128_kl1e-6|configs_vae/vae_wavenet_v3loss_22k80b_bs128_ss16k.json|datasets/adlr_audio_everything.json|--gpu 8 --nodes 1|num_workers=4 vocoder_input_dim=128 lambda_klloss=0.000001
+#vae_wavenet_all_v3loss_22k80b_fmax11k_vd128_kl1e-6_cgn1000|configs_vae/vae_wavenet_v3loss_22k80b_bs128_ss16k.json|datasets/adlr_audio_everything.json|--gpu 8 --nodes 1|num_workers=4 fmax=11025 vocoder_input_dim=128 lambda_klloss=0.000001 clip_grad_norm=1000
+#vae_wavenet768_all_v3loss_22k80b_vd128_kl1e-6_cgn1000|configs_vae/vae_wavenet_v3loss_22k80b_bs128_ss16k.json|datasets/adlr_audio_everything.json|--gpu 8 --nodes 1|num_workers=4 enc_dim=768 vocoder_input_dim=128 lambda_klloss=0.000001 clip_grad_norm=1000
+#vae_wavenet768_all_v3loss_22k80b_fmax11k_vd128_kl1e-6_cgn1000|configs_vae/vae_wavenet_v3loss_22k80b_bs128_ss16k.json|datasets/adlr_audio_everything.json|--gpu 8 --nodes 1|num_workers=4 enc_dim=768 fmax=11025 vocoder_input_dim=128 lambda_klloss=0.000001 clip_grad_norm=1000
+#vae_wavenet_all_v3loss_22klinear_vd128_kl1e-6|configs_vae/vae_wavenet_v3loss_22klinear_bs128_ss16k.json|datasets/adlr_audio_everything.json|--gpu 8 --nodes 1|num_workers=4 vocoder_input_dim=128 lambda_klloss=0.000001
+#vae_wavenet768_all_v3loss_22klinear_vd128_kl1e-6|configs_vae/vae_wavenet_v3loss_22klinear_bs128_ss16k.json|datasets/adlr_audio_everything.json|--gpu 8 --nodes 1|num_workers=4 enc_dim=768 vocoder_input_dim=128 lambda_klloss=0.000001
+#vae_wavenet768_all_v3loss_44k128b_vd128_kl1e-6|configs_vae/vae_wavenet_v3loss_44k128b_bs128_ss16k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|num_workers=4 enc_dim=768 vocoder_input_dim=128 lambda_klloss=0.000001
+#vae_wavenet768_all_v3loss_44klinear_vd128_kl1e-6|configs_vae/vae_wavenet_v3loss_44klinear_bs128_ss16k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|num_workers=4 enc_dim=768 vocoder_input_dim=128 lambda_klloss=0.000001
+#vae_wavenet384_all_v3loss_44k128b_bs32_ss64k_vd128_kl1e-6|configs_vae/vae_wavenet_v3loss_44k128b_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|num_workers=4 enc_dim=384 vocoder_input_dim=128 lambda_klloss=0.000001
+#vae_wavenet384_all_v3loss_44klinear_bs32_ss64k_vd128_kl1e-6|configs_vae/vae_wavenet_v3loss_44klinear_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|num_workers=4 enc_dim=384 vocoder_input_dim=128 lambda_klloss=0.000001
+#vae_wavenet768_all_v3loss_44k128b_bs32_ss64k_vd128_kl1e-6|configs_vae/vae_wavenet_v3loss_44k128b_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|num_workers=4 enc_dim=768 vocoder_input_dim=128 lambda_klloss=0.000001
+#vae_wavenet768_all_v3loss_44klinear_bs32_ss64k_vd128_kl1e-6|configs_vae/vae_wavenet_v3loss_44klinear_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|num_workers=4 enc_dim=768 vocoder_input_dim=128 lambda_klloss=0.000001
+#vae_wavenet768_all_v3loss_44k128b_bs32_ss64k_vd128_kl1e-6_cgn2000|configs_vae/vae_wavenet_v3loss_44k128b_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|num_workers=4 enc_dim=768 vocoder_input_dim=128 lambda_klloss=0.000001 clip_grad_norm=2000
+#vae_wavenet768_all_v3loss_44klinear_bs32_ss64k_vd128_kl1e-6_cgn2000|configs_vae/vae_wavenet_v3loss_44klinear_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|num_workers=4 enc_dim=768 vocoder_input_dim=128 lambda_klloss=0.000001 clip_grad_norm=2000
+#vae_wavenet384_all_v3loss_44k256b512h2048w_bs32_ss64k_vd128_kl1e-5_cgn2000|configs_vae/vae_wavenet_v3loss_44k128b512h2048w_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|num_workers=4 num_mels=256 enc_dim=384 vocoder_input_dim=128 lambda_klloss=0.00001 clip_grad_norm=2000
+#vae_wavenet384_all_v3loss_44k256b512h2048w_bs32_ss64k_vd128_kl1e-6_cgn2000|configs_vae/vae_wavenet_v3loss_44k128b512h2048w_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|num_workers=4 num_mels=256 enc_dim=384 vocoder_input_dim=128 lambda_klloss=0.000001 clip_grad_norm=2000
+##########################################
+# vae_wavenet with linear spectrogram as input
+##########################################
+#vae_wavenet384_all_v3loss_22k80b_fmax11k_vd128_kl1e-6_cgn1000|configs_vae/vae_wavenet_v3loss_22k80b_bs128_ss16k.json|datasets/adlr_audio_everything.json|--gpu 8 --nodes 1|num_workers=4 enc_dim=384 fmax=11025 vocoder_input_dim=128 lambda_klloss=0.000001 clip_grad_norm=1000
+#vae_wavenet384_all_v3loss_22klinear_vd128_kl1e-6|configs_vae/vae_wavenet_v3loss_22klinear_bs128_ss16k.json|datasets/adlr_audio_everything.json|--gpu 8 --nodes 1|num_workers=4 enc_dim=384 vocoder_input_dim=128 lambda_klloss=0.000001
+##########################################
+# vae_wavenet 44khz runs
+##########################################
+#vae_wavenet384_all_v3loss_44k128b_vd128_kl1e-6|configs_vae/vae_wavenet_v3loss_44k128b_bs128_ss16k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|num_workers=4 enc_dim=384 vocoder_input_dim=128 lambda_klloss=0.000001
+#vae_wavenet384_all_v3loss_44klinear_vd128_kl1e-6|configs_vae/vae_wavenet_v3loss_44klinear_bs128_ss16k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|num_workers=4 enc_dim=384 vocoder_input_dim=128 lambda_klloss=0.000001
+#vae_wavenet384_all_v3loss_44klinear_bs32_ss64k_vd128_kl1e-6_cgn2000|configs_vae/vae_wavenet_v3loss_44klinear_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|num_workers=4 enc_dim=384 vocoder_input_dim=128 lambda_klloss=0.000001 clip_grad_norm=2000
+#vae_wavenet_all_v3loss_44k128b512h2048w_bs32_ss64k_vd128_kl1e-6_cgn2000|configs_vae/vae_wavenet_v3loss_44k128b512h2048w_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|num_workers=4 vocoder_input_dim=128 lambda_klloss=0.000001 clip_grad_norm=2000
+#vae_wavenet_all_v3loss_44k128b512h2048w_bs32_ss64k_vd128_kl1e-6_cgn2000_hingeloss|configs_vae/vae_wavenet_v3loss_44k128b512h2048w_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|num_workers=4 vocoder_input_dim=128 lambda_klloss=0.000001 clip_grad_norm=2000 loss_type=hinge
+#vae_wavenet_all_v3loss_44k128b512h2048w_bs32_ss64k_vd128_kl1e-7_cgn2000|configs_vae/vae_wavenet_v3loss_44k128b512h2048w_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|num_workers=4 vocoder_input_dim=128 lambda_klloss=0.0000001 clip_grad_norm=2000
+#vae_wavenet_all_v3loss_44k128b512h2048w_bs32_ss64k_vd128_kl1e-7_cgn2000_hingeloss|configs_vae/vae_wavenet_v3loss_44k128b512h2048w_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|num_workers=4 vocoder_input_dim=128 lambda_klloss=0.0000001 clip_grad_norm=2000 loss_type=hinge
+#vae_wavenet384_all_v3loss_44k128b512h1024w_bs32_ss64k_vd128_kl1e-6_cgn2000|configs_vae/vae_wavenet_v3loss_44k128b512h1024w_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|num_workers=4 enc_dim=384 vocoder_input_dim=128 lambda_klloss=0.000001 clip_grad_norm=2000
+#vae_wavenet384_all_v3loss_44k128b512h2048w_bs32_ss64k_vd128_kl1e-6_cgn2000_hingeloss|configs_vae/vae_wavenet_v3loss_44k128b512h2048w_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|num_workers=4 enc_dim=384 vocoder_input_dim=128 lambda_klloss=0.000001 clip_grad_norm=2000 loss_type=hinge
+#vae_wavenet384_all_v3loss_44k128b512h2048w_bs32_ss64k_vd128_kl1e-7_cgn2000|configs_vae/vae_wavenet_v3loss_44k128b512h2048w_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|num_workers=4 enc_dim=384 vocoder_input_dim=128 lambda_klloss=0.0000001 clip_grad_norm=2000
+#vae_wavenet384_all_v3loss_44k128b512h2048w_bs32_ss64k_vd128_kl1e-7_cgn2000_hingeloss|configs_vae/vae_wavenet_v3loss_44k128b512h2048w_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|num_workers=4 enc_dim=384 vocoder_input_dim=128 lambda_klloss=0.0000001 clip_grad_norm=2000 loss_type=hinge
+#vae_wavenet384_all_v3loss_44k128b512h2048w_bs32_ss64k_vd128_kl1e-5_cgn2000|configs_vae/vae_wavenet_v3loss_44k128b512h2048w_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|num_workers=4 enc_dim=384 vocoder_input_dim=128 lambda_klloss=0.00001 clip_grad_norm=2000
+##########################################
+# failed v4loss exps
+##########################################
+#voc_all_v4loss_lm3_44k128b512h2048w_bs32_ss64k_lr2r-4_cgn500_notanh_nobias|configs_poc/v4loss_44k128b512h2048w_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|num_mels=128 num_workers=4 learning_rate=0.0002 clip_grad_norm=500 lambda_melloss=3 use_tanh_at_final=false use_bias_at_final=false
+#voc_all_v4loss_lm5_44k128b512h2048w_bs32_ss64k_lr2r-4_cgn500_notanh_nobias|configs_poc/v4loss_44k128b512h2048w_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|num_mels=128 num_workers=4 learning_rate=0.0002 clip_grad_norm=500 lambda_melloss=5 use_tanh_at_final=false use_bias_at_final=false
+#voc_stereo_all_v4loss_lm1_44k128b512h2048w_bs32_ss64k_lr2r-4_cgn500_notanh_nobias|configs_poc/v4loss_44k128b512h2048w_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|stereo=true num_mels=128 num_workers=4 learning_rate=0.0002 clip_grad_norm=500 lambda_melloss=1 use_tanh_at_final=false use_bias_at_final=false
+#voc_stereo_all_v4loss_lm3_44k128b512h2048w_bs32_ss64k_lr2r-4_cgn500_notanh_nobias|configs_poc/v4loss_44k128b512h2048w_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|stereo=true num_mels=128 num_workers=4 learning_rate=0.0002 clip_grad_norm=500 lambda_melloss=3 use_tanh_at_final=false use_bias_at_final=false
+#voc_stereo_all_v4loss_lm5_44k128b512h2048w_bs32_ss64k_lr2r-4_cgn500_notanh_nobias|configs_poc/v4loss_44k128b512h2048w_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|stereo=true num_mels=128 num_workers=4 learning_rate=0.0002 clip_grad_norm=500 lambda_melloss=5 use_tanh_at_final=false use_bias_at_final=false
+#vae_stereo_wavenet384_all_v4loss_lm1_44k128b512h2048w_bs32_ss64k_vd128_kl1e-6_lr2r-4_cgn2000_notanh_nobias|configs_vae/vae_wavenet_v4loss_44k128b512h2048w_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|stereo=true num_workers=4 enc_dim=384 vocoder_input_dim=128 lambda_klloss=0.000001 learning_rate=0.0002 clip_grad_norm=2000 lambda_melloss=1 use_tanh_at_final=false use_bias_at_final=false
+#vae_stereo_wavenet384_all_v4loss_lm3_44k128b512h2048w_bs32_ss64k_vd128_kl1e-6_lr2r-4_cgn2000_notanh_nobias|configs_vae/vae_wavenet_v4loss_44k128b512h2048w_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|stereo=true num_workers=4 enc_dim=384 vocoder_input_dim=128 lambda_klloss=0.000001 learning_rate=0.0002 clip_grad_norm=2000 lambda_melloss=3 use_tanh_at_final=false use_bias_at_final=false
+#vae_stereo_wavenet384_all_v4loss_lm5_44k128b512h2048w_bs32_ss64k_vd128_kl1e-6_lr2r-4_cgn2000_notanh_nobias|configs_vae/vae_wavenet_v4loss_44k128b512h2048w_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|stereo=true num_workers=4 enc_dim=384 vocoder_input_dim=128 lambda_klloss=0.000001 learning_rate=0.0002 clip_grad_norm=2000 lambda_melloss=5 use_tanh_at_final=false use_bias_at_final=false
+#vae_stereo_wavenet384_all_v4loss_mrdcm2lm1_44k128b512h2048w_bs32_ss64k_vd128_kl1e-6_lr2r-4_cgn2000_notanh_nobias|configs_vae/vae_wavenet_v4loss_44k128b512h2048w_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|stereo=true num_workers=4 enc_dim=384 vocoder_input_dim=128 lambda_klloss=0.000001 learning_rate=0.0002 clip_grad_norm=2000 mrd_channel_mult=2 lambda_melloss=1 use_tanh_at_final=false use_bias_at_final=false
+#vae_stereo_wavenet384_all_v4loss_mrdcm2lm3_44k128b512h2048w_bs32_ss64k_vd128_kl1e-6_lr2r-4_cgn2000_notanh_nobias|configs_vae/vae_wavenet_v4loss_44k128b512h2048w_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|stereo=true num_workers=4 enc_dim=384 vocoder_input_dim=128 lambda_klloss=0.000001 learning_rate=0.0002 clip_grad_norm=2000 mrd_channel_mult=2 lambda_melloss=3 use_tanh_at_final=false use_bias_at_final=false
+#vae_stereo_wavenet384_all_v4loss_mrdcm2lm5_44k128b512h2048w_bs32_ss64k_vd128_kl1e-6_lr2r-4_cgn2000_notanh_nobias|configs_vae/vae_wavenet_v4loss_44k128b512h2048w_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|stereo=true num_workers=4 enc_dim=384 vocoder_input_dim=128 lambda_klloss=0.000001 learning_rate=0.0002 clip_grad_norm=2000 mrd_channel_mult=2 lambda_melloss=5 use_tanh_at_final=false use_bias_at_final=false
+##########################################
+# stereo adventures
+# all sounds pretty monoish at best. Perhaps mel as input is not enough to encode stereo (already no visual difference btw L/R channels anyway)
+##########################################
+#vae_stereo_wavenet384_all_v3pwloss_44k128b512h2048w_bs32_ss64k_vd128_kl1e-6_cgn2000_noaatanhbias|configs_vae/vae_wavenet_v3loss_44k128b512h2048w_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|stereo=true num_workers=4 enc_dim=384 vocoder_input_dim=128 lambda_klloss=0.000001 perceptual_weighting=true clip_grad_norm=2000 anti_aliasing=false use_tanh_at_final=false use_bias_at_final=false
+#vae_stereo_wavenet384_all_cqtpwlossf128_44k128b512h2048w_bs32_ss64k_vd128_kl1e-6_cgn2000_noaatanhbias|configs_vae/vae_wavenet_cqtloss_44k128b512h2048w_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|stereo=true num_workers=4 enc_dim=384 vocoder_input_dim=128 lambda_klloss=0.000001 perceptual_weighting=true clip_grad_norm=2000 cqtd_filters=128 anti_aliasing=false use_tanh_at_final=false use_bias_at_final=false
+##########################################
+# v4loss: stereo loss used by stable audio 2.0
+# use stable audio 2.0's config (notahnh/bias) and stereo spectral loss (sum and difference + mrstft) and keep dac D, dubbed as "v4loss"
+# stereo 44k exps, using (same) adlr_audio_everything_44k.json (both mono & stereo, where model upmixes mono audio to stereo)
+# will try out adlr_audio_everything_44k_stereo.json filelist that only contains stereo sounds later
+# start with standalone vocoder setup to compare
+# needs lambda sweep on spectral (lm*) & discriminator channel mult (dcm, try out only for vae to reduce waste)
+# ...and disable anti-aliasing (this loses one of core BigVGAN contribution, but large model has less gains and can be made faster) and crank lr up to 2e-4?
+# all terrible! how come sa2.0 uses this and get good result uhh
+##########################################
+#voc_all_v4loss_lm0.25_44k128b512h2048w_bs32_ss64k_cgnd100g500_noaatanhbias|configs_poc/v4loss_44k128b512h2048w_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|num_mels=128 num_workers=4 clip_grad_norm_d=100 clip_grad_norm_g=500 lambda_melloss=0.25 anti_aliasing=false use_tanh_at_final=false use_bias_at_final=false
+#voc_all_v4loss_lm0.5_44k128b512h2048w_bs32_ss64k_cgnd100g500_noaatanhbias|configs_poc/v4loss_44k128b512h2048w_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|num_mels=128 num_workers=4 clip_grad_norm_d=100 clip_grad_norm_g=500 lambda_melloss=0.5 anti_aliasing=false use_tanh_at_final=false use_bias_at_final=false
+#voc_all_v4loss_lm0.75_44k128b512h2048w_bs32_ss64k_cgnd100g500_noaatanhbias|configs_poc/v4loss_44k128b512h2048w_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|num_mels=128 num_workers=4 clip_grad_norm_d=100 clip_grad_norm_g=500 lambda_melloss=0.75 anti_aliasing=false use_tanh_at_final=false use_bias_at_final=false
+#voc_all_v4loss_lm1_44k128b512h2048w_bs32_ss64k_cgnd100g500_noaatanhbias|configs_poc/v4loss_44k128b512h2048w_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|num_mels=128 num_workers=4 clip_grad_norm_d=100 clip_grad_norm_g=500 lambda_melloss=1 anti_aliasing=false use_tanh_at_final=false use_bias_at_final=false
+#voc_stereo_all_v4loss_lm0.25_44k128b512h2048w_bs32_ss64k_cgnd100g500_noaatanhbias|configs_poc/v4loss_44k128b512h2048w_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|stereo=true num_mels=128 num_workers=4 clip_grad_norm_d=100 clip_grad_norm_g=500 lambda_melloss=0.25 anti_aliasing=false use_tanh_at_final=false use_bias_at_final=false
+#voc_stereo_all_v4loss_lm0.5_44k128b512h2048w_bs32_ss64k_cgnd100g500_noaatanhbias|configs_poc/v4loss_44k128b512h2048w_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|stereo=true num_mels=128 num_workers=4 clip_grad_norm_d=100 clip_grad_norm_g=500 lambda_melloss=0.5 anti_aliasing=false use_tanh_at_final=false use_bias_at_final=false
+#voc_stereo_all_v4loss_lm0.75_44k128b512h2048w_bs32_ss64k_cgnd100g500_noaatanhbias|configs_poc/v4loss_44k128b512h2048w_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|stereo=true num_mels=128 num_workers=4 clip_grad_norm_d=100 clip_grad_norm_g=500 lambda_melloss=0.75 anti_aliasing=false use_tanh_at_final=false use_bias_at_final=false
+#voc_stereo_all_v4loss_lm1_44k128b512h2048w_bs32_ss64k_cgnd100g500_noaatanhbias|configs_poc/v4loss_44k128b512h2048w_bs32_ss64k.json|datasets/adlr_audio_everything_44k.json|--gpu 8 --nodes 1|stereo=true num_mels=128 num_workers=4 clip_grad_norm_d=100 clip_grad_norm_g=500 lambda_melloss=1 anti_aliasing=false use_tanh_at_final=false use_bias_at_final=false
+##########################################
+# DEPRECATED
+##########################################

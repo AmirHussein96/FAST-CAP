@@ -1,0 +1,28 @@
+- type: group
+  weight: 1
+  tags:
+    s2s_duplex: true
+  input_cfg:
+  - type: lhotse_shar
+    shar_path: shars/fr-FR_v2.1
+- type: group
+  weight: 1
+  tags:
+    s2s_duplex: true
+  input_cfg:
+  - type: lhotse_shar
+    shar_path: shars/es-US_v1.0
+- type: group
+  weight: 1.0
+  tags:
+    s2s_duplex: true
+  input_cfg:
+  - type: lhotse_shar
+    shar_path: shars/es-US_v1.0
+- type: group
+  weight: 1
+  tags:
+    s2s_duplex: true
+  input_cfg:
+  - type: lhotse_shar
+    shar_path: de-DE_v1.0

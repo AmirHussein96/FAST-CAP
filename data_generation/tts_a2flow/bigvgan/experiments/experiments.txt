@@ -1,0 +1,18 @@
+##########################################
+# syntax: job_name|config_filepath|dataset_config_filepath|launch_params|hparams (num_workers=4 as placeholder)
+# --outfile of submit_job auto-mapped to {job_name}/job.log
+##########################################
+##########################################
+# all data: LibriLight+AudioLM_data, v1 & v3loss
+##########################################
+all_22k80b_bs128_ss16k_cgn500|configs_poc/22k80b_bs128_ss16k.json|datasets/adlr_audio_everything.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=500 warmup_step=4000
+all_v3loss_22k80b_bs128_ss16k_cgn500|configs_poc/v3loss_22k80b_bs128_ss16k.json|datasets/adlr_audio_everything.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=500 warmup_step=5000
+##########################################
+# full-band exps on 22khz, v3loss
+##########################################
+v3loss_all_22k80b_fmax11k_bs128_ss16k_cgn500|configs_poc/v3loss_22k80b_fmax11k_bs128_ss16k.json|datasets/adlr_audio_everything.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=500 warmup_step=5000
+##########################################
+# DID SOMETHING HAPPEN AFTER CHANGING RESAMPLING TO LIBROSA? mrd grad_norms are skyrocking since this change...
+##########################################
+#all_v3loss_22k80b_bs128_ss16k_cgn500_AFTERLIBROSA|configs_poc/v3loss_22k80b_bs128_ss16k.json|datasets/adlr_audio_everything.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=500 warmup_step=5000
+#all_v3loss_22k80b_bs128_ss16k_cgn500_AFTERLIBROSA2|configs_poc/v3loss_22k80b_bs128_ss16k.json|datasets/adlr_audio_everything.json|--gpu 8 --nodes 1|num_workers=4 clip_grad_norm=500 warmup_step=5000

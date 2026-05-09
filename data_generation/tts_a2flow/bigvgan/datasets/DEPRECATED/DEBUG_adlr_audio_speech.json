@@ -1,0 +1,27 @@
+{
+    "data": {
+        "dur_min": 0,
+        "dur_max": 99,
+        "sampling_rate": 22050,
+        "training_files": {
+            "LibriVox-French": {
+                "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_speech/datasets/LibriLight/French",
+                "audio_dir": "raw_mp3",
+                "filelist": "French_metadata.ndjson",
+                "n_max_files": -1,
+                "language": "fr_FR",
+                "n_repeats": 0
+            }
+        },
+        "validation_files": {
+            "LibriTTS-Dev": {
+                "basedir": "datasets/LibriTTS",
+                "audio_dir": "22khz",
+                "filelist": "dev_audiopath_text_speaker_emotion_duration_filelist.txt",
+                "n_max_files": 128,
+                "language": "en_US",
+                "n_repeats": 0
+            }
+        }
+    }
+}

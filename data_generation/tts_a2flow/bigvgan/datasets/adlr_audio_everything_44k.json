@@ -1,0 +1,429 @@
+{
+    "data": {
+      "dur_min": 0,
+      "dur_max": 1200,
+      "sampling_rate": 44100,
+      "training_files": {
+          "HiFiTTS_clean_train": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_speech/datasets/HIFI-TTS",
+            "audio_dir": "44khz",
+            "filelist": "hifitts_clean_train.ndjson",
+            "n_max_files": -1,
+            "language": "en_US"
+          },
+          "HiFiTTS_other_train": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_speech/datasets/HIFI-TTS",
+            "audio_dir": "44khz",
+            "filelist": "hifitts_other_train.ndjson",
+            "n_max_files": -1,
+            "language": "en_US"
+          },
+          "SIWIS": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_speech/datasets/SIWIS",
+            "audio_dir": "44khz",
+            "filelist": "siwis_audiopath_text_sid_emotion_duration_filelist.txt",
+            "n_max_files": -1,
+            "language": "en_US"
+          },
+          "Spanish-HQ_argentinian": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_speech/datasets/Spanish-HQ",
+            "audio_dir": "argentinian",
+            "filelist": "/lustre/fsw/portfolios/adlr/users/sanggill/filelists/adlr_audio_speech_datasets_44khz/Spanish-HQ_44khz/argentinian_audio_filelist.txt",
+            "n_max_files": -1,
+            "language": "en_US"
+          },
+          "Spanish-HQ_chilean": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_speech/datasets/Spanish-HQ",
+            "audio_dir": "chilean",
+            "filelist": "/lustre/fsw/portfolios/adlr/users/sanggill/filelists/adlr_audio_speech_datasets_44khz/Spanish-HQ_44khz/chilean_audio_filelist.txt",
+            "n_max_files": -1,
+            "language": "en_US"
+          },
+          "Spanish-HQ_colombian": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_speech/datasets/Spanish-HQ",
+            "audio_dir": "colombian",
+            "filelist": "/lustre/fsw/portfolios/adlr/users/sanggill/filelists/adlr_audio_speech_datasets_44khz/Spanish-HQ_44khz/colombian_audio_filelist.txt",
+            "n_max_files": -1,
+            "language": "en_US"
+          },
+          "Spanish-HQ_peruvian": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_speech/datasets/Spanish-HQ",
+            "audio_dir": "peruvian",
+            "filelist": "/lustre/fsw/portfolios/adlr/users/sanggill/filelists/adlr_audio_speech_datasets_44khz/Spanish-HQ_44khz/peruvian_audio_filelist.txt",
+            "n_max_files": -1,
+            "language": "en_US"
+          },
+          "Spanish-HQ_puertorican": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_speech/datasets/Spanish-HQ",
+            "audio_dir": "puertorican",
+            "filelist": "/lustre/fsw/portfolios/adlr/users/sanggill/filelists/adlr_audio_speech_datasets_44khz/Spanish-HQ_44khz/puertorican_audio_filelist.txt",
+            "n_max_files": -1,
+            "language": "en_US"
+          },
+          "Spanish-HQ_venezuelan": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_speech/datasets/Spanish-HQ",
+            "audio_dir": "venezuelan",
+            "filelist": "/lustre/fsw/portfolios/adlr/users/sanggill/filelists/adlr_audio_speech_datasets_44khz/Spanish-HQ_44khz/venezuelan_audio_filelist.txt",
+            "n_max_files": -1,
+            "language": "en_US"
+          },
+          "TTS-Portuguese-Corpus": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_speech/datasets/TTS-Portuguese-Corpus",
+            "audio_dir": "44khz",
+            "filelist": "ed_portuguese_audiopath_transcript_sid_emotion_duration.txt",
+            "n_max_files": -1,
+            "language": "en_US"
+          },
+          "VCTK": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_speech/datasets/VCTK",
+            "audio_dir": "wav48_silence_trimmed",
+            "filelist": "/lustre/fsw/portfolios/adlr/users/sanggill/filelists/adlr_audio_speech_datasets_44khz/VCTK_44khz/wav48_silence_trimmed_audio_filelist.txt",
+            "n_max_files": -1,
+            "language": "en_US"
+          },
+          "css10_de": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_speech/datasets/css10/de",
+            "audio_dir": "44khz",
+            "filelist": "de_css10_audiopath_filelist_sid_emotion_duration.txt",
+            "n_max_files": -1,
+            "language": "en_US"
+          },
+          "css10_es": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_speech/datasets/css10/es",
+            "audio_dir": "44khz",
+            "filelist": "es_css10_audiopath_filelist_sid_emotion_duration.txt",
+            "n_max_files": -1,
+            "language": "en_US"
+          },
+          "css10_fr": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_speech/datasets/css10/fr",
+            "audio_dir": "44khz",
+            "filelist": "fr_css10_audiopath_filelist_sid_emotion_duration.txt",
+            "n_max_files": -1,
+            "language": "en_US"
+          },
+          "css10_ru": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_speech/datasets/css10/ru",
+            "audio_dir": "44khz",
+            "filelist": "ru_css10_audiopath_filelist_sid_emotion_duration.txt",
+            "n_max_files": -1,
+            "language": "en_US"
+          },
+          "indic-languages-tts-iiit-h": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_speech/datasets/indic-languages-tts-iiit-h",
+            "audio_dir": "44khz_single_channel",
+            "filelist": "hi_indic_iiit_hyderbad_audiopath_text_sid_emotion_duration.txt",
+            "n_max_files": -1,
+            "language": "en_US"
+          },
+          "l2arctic": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_speech/datasets/l2arctic",
+            "audio_dir": "44khz",
+            "filelist": "/lustre/fsw/portfolios/adlr/users/sanggill/filelists/adlr_audio_speech_datasets_44khz/l2arctic_44khz/44khz_audio_filelist.txt",
+            "n_max_files": -1,
+            "language": "en_US"
+          },
+          "AudioSet": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_music/datasets",
+            "audio_dir": "AudioSet",
+            "filelist": "/lustre/fsw/portfolios/adlr/users/sanggill/filelists/adlr_audio_music_datasets_44khz/AudioSet_audio_filelist.txt",
+            "n_max_files": -1,
+            "language": "en_US"
+          },
+          "CLAP_freesound": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_music/datasets",
+            "audio_dir": "CLAP_freesound",
+            "filelist": "/lustre/fsw/portfolios/adlr/users/sanggill/filelists/adlr_audio_music_datasets_44khz/CLAP_freesound_audio_filelist.txt",
+            "n_max_files": -1,
+            "language": "en_US"
+          },
+          "CREMA-D": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_speech/datasets/emotions/CREMA-D",
+            "audio_dir": "AudioWAV",
+            "filelist": "crema-d_audiopath_text_sid_emotion_filelist.txt",
+            "n_max_files": -1,
+            "language": "en_US"
+          },
+          "Clotho-AQA": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_music/datasets",
+            "audio_dir": "Clotho-AQA",
+            "filelist": "/lustre/fsw/portfolios/adlr/users/sanggill/filelists/adlr_audio_music_datasets_44khz/Clotho-AQA_audio_filelist.txt",
+            "n_max_files": -1,
+            "language": "en_US"
+          },
+          "Clotho-v2": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_music/datasets",
+            "audio_dir": "Clotho-v2",
+            "filelist": "/lustre/fsw/portfolios/adlr/users/sanggill/filelists/adlr_audio_music_datasets_44khz/Clotho-v2_audio_filelist.txt",
+            "n_max_files": -1,
+            "language": "en_US"
+          },
+          "CochlScene": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_music/datasets",
+            "audio_dir": "CochlScene",
+            "filelist": "/lustre/fsw/portfolios/adlr/users/sanggill/filelists/adlr_audio_music_datasets_44khz/CochlScene_audio_filelist.txt",
+            "n_max_files": -1,
+            "language": "en_US"
+          },
+          "DCASE17Task4": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_music/datasets",
+            "audio_dir": "DCASE17Task4",
+            "filelist": "/lustre/fsw/portfolios/adlr/users/sanggill/filelists/adlr_audio_music_datasets_44khz/DCASE17Task4_audio_filelist.txt",
+            "n_max_files": -1,
+            "language": "en_US"
+          },
+          "ESC-50": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_music/datasets",
+            "audio_dir": "ESC-50",
+            "filelist": "/lustre/fsw/portfolios/adlr/users/sanggill/filelists/adlr_audio_music_datasets_44khz/ESC-50_audio_filelist.txt",
+            "n_max_files": -1,
+            "language": "en_US"
+          },
+          "Epidemic_sound": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_music/datasets",
+            "audio_dir": "Epidemic_sound",
+            "filelist": "/lustre/fsw/portfolios/adlr/users/sanggill/filelists/adlr_audio_music_datasets_44khz/Epidemic_sound_audio_filelist.txt",
+            "n_max_files": -1,
+            "language": "en_US"
+          },
+          "FMA": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_music/datasets",
+            "audio_dir": "FMA",
+            "filelist": "/lustre/fsw/portfolios/adlr/users/sanggill/filelists/adlr_audio_music_datasets_44khz/FMA_audio_filelist.txt",
+            "n_max_files": -1,
+            "n_repeats": 2,
+            "language": "en_US"
+          },
+          "FSD50k": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_music/datasets",
+            "audio_dir": "FSD50k",
+            "filelist": "/lustre/fsw/portfolios/adlr/users/sanggill/filelists/adlr_audio_music_datasets_44khz/FSD50k_audio_filelist.txt",
+            "n_max_files": -1,
+            "language": "en_US"
+          },
+          "GTZAN": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_music/datasets",
+            "audio_dir": "GTZAN",
+            "filelist": "/lustre/fsw/portfolios/adlr/users/sanggill/filelists/adlr_audio_music_datasets_44khz/GTZAN_audio_filelist.txt",
+            "n_max_files": -1,
+            "language": "en_US"
+          },
+          "IEMOCAP": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_music/datasets",
+            "audio_dir": "IEMOCAP",
+            "filelist": "/lustre/fsw/portfolios/adlr/users/sanggill/filelists/adlr_audio_music_datasets_44khz/IEMOCAP_audio_filelist.txt",
+            "n_max_files": -1,
+            "language": "en_US"
+          },
+          "Juno": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_music/datasets",
+            "audio_dir": "Juno",
+            "filelist": "/lustre/fsw/portfolios/adlr/users/sanggill/filelists/adlr_audio_music_datasets_44khz/Juno_audio_filelist.txt",
+            "n_max_files": -1,
+            "language": "en_US"
+          },
+          "MACS": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_music/datasets",
+            "audio_dir": "MACS",
+            "filelist": "/lustre/fsw/portfolios/adlr/users/sanggill/filelists/adlr_audio_music_datasets_44khz/MACS_audio_filelist.txt",
+            "n_max_files": -1,
+            "language": "en_US"
+          },
+          "MELD": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_music/datasets",
+            "audio_dir": "MELD",
+            "filelist": "/lustre/fsw/portfolios/adlr/users/sanggill/filelists/adlr_audio_music_datasets_44khz/MELD_audio_filelist.txt",
+            "n_max_files": -1,
+            "language": "en_US"
+          },
+          "MSP-PODCAST-Publish-1.9": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_speech/datasets/MSP-PODCAST-Publish-1.9",
+            "audio_dir": "44khz_from_16khz",
+            "filelist": "audiopath_text_speaker_train_filelist.txt",
+            "n_max_files": -1,
+            "language": "en_US"
+          },
+          "MU-LLAMA": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_music/datasets",
+            "audio_dir": "MU-LLAMA",
+            "filelist": "/lustre/fsw/portfolios/adlr/users/sanggill/filelists/adlr_audio_music_datasets_44khz/MU-LLAMA_audio_filelist.txt",
+            "n_max_files": -1,
+            "language": "en_US"
+          },
+          "MagnaTagATune": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_music/datasets",
+            "audio_dir": "MagnaTagATune",
+            "filelist": "/lustre/fsw/portfolios/adlr/users/sanggill/filelists/adlr_audio_music_datasets_44khz/MagnaTagATune_audio_filelist.txt",
+            "n_max_files": -1,
+            "language": "en_US"
+          },
+          "Medley-solos-DB": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_music/datasets",
+            "audio_dir": "Medley-solos-DB",
+            "filelist": "/lustre/fsw/portfolios/adlr/users/sanggill/filelists/adlr_audio_music_datasets_44khz/Medley-solos-DB_audio_filelist.txt",
+            "n_max_files": -1,
+            "language": "en_US"
+          },
+          "Music-AVQA": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_music/datasets",
+            "audio_dir": "Music-AVQA",
+            "filelist": "/lustre/fsw/portfolios/adlr/users/sanggill/filelists/adlr_audio_music_datasets_44khz/Music-AVQA_audio_filelist.txt",
+            "n_max_files": -1,
+            "language": "en_US"
+          },
+          "MusicCaps": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_music/datasets",
+            "audio_dir": "MusicCaps",
+            "filelist": "/lustre/fsw/portfolios/adlr/users/sanggill/filelists/adlr_audio_music_datasets_44khz/MusicCaps_audio_filelist.txt",
+            "n_max_files": -1,
+            "language": "en_US"
+          },
+          "MusicNet": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_music/datasets",
+            "audio_dir": "MusicNet",
+            "filelist": "/lustre/fsw/portfolios/adlr/users/sanggill/filelists/adlr_audio_music_datasets_44khz/MusicNet_audio_filelist.txt",
+            "n_max_files": -1,
+            "language": "en_US"
+          },
+          "NSynth": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_music/datasets",
+            "audio_dir": "NSynth",
+            "filelist": "/lustre/fsw/portfolios/adlr/users/sanggill/filelists/adlr_audio_music_datasets_44khz/NSynth_audio_filelist.txt",
+            "n_max_files": -1,
+            "language": "en_US"
+          },
+          "NonSpeech7k": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_music/datasets",
+            "audio_dir": "NonSpeech7k",
+            "filelist": "/lustre/fsw/portfolios/adlr/users/sanggill/filelists/adlr_audio_music_datasets_44khz/NonSpeech7k_audio_filelist.txt",
+            "n_max_files": -1,
+            "language": "en_US"
+          },
+          "OMGEmotion": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_music/datasets",
+            "audio_dir": "OMGEmotion",
+            "filelist": "/lustre/fsw/portfolios/adlr/users/sanggill/filelists/adlr_audio_music_datasets_44khz/OMGEmotion_audio_filelist.txt",
+            "n_max_files": -1,
+            "language": "en_US"
+          },
+          "OpenAQA": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_music/datasets",
+            "audio_dir": "OpenAQA",
+            "filelist": "/lustre/fsw/portfolios/adlr/users/sanggill/filelists/adlr_audio_music_datasets_44khz/OpenAQA_audio_filelist.txt",
+            "n_max_files": -1,
+            "language": "en_US"
+          },
+          "SONYC-UST": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_music/datasets",
+            "audio_dir": "SONYC-UST",
+            "filelist": "/lustre/fsw/portfolios/adlr/users/sanggill/filelists/adlr_audio_music_datasets_44khz/SONYC-UST_audio_filelist.txt",
+            "n_max_files": -1,
+            "language": "en_US"
+          },
+          "SoundDescs": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_music/datasets",
+            "audio_dir": "SoundDescs",
+            "filelist": "/lustre/fsw/portfolios/adlr/users/sanggill/filelists/adlr_audio_music_datasets_44khz/SoundDescs_audio_filelist.txt",
+            "n_max_files": -1,
+            "n_repeats": 5,
+            "language": "en_US"
+          },
+          "UrbanSound8K": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_music/datasets",
+            "audio_dir": "UrbanSound8K",
+            "filelist": "/lustre/fsw/portfolios/adlr/users/sanggill/filelists/adlr_audio_music_datasets_44khz/UrbanSound8K_audio_filelist.txt",
+            "n_max_files": -1,
+            "language": "en_US"
+          },
+          "VocalSound": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_music/datasets",
+            "audio_dir": "VocalSound",
+            "filelist": "/lustre/fsw/portfolios/adlr/users/sanggill/filelists/adlr_audio_music_datasets_44khz/VocalSound_audio_filelist.txt",
+            "n_max_files": -1,
+            "language": "en_US"
+          },
+          "WavCaps": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_music/datasets",
+            "audio_dir": "WavCaps",
+            "filelist": "/lustre/fsw/portfolios/adlr/users/sanggill/filelists/adlr_audio_music_datasets_44khz/WavCaps_audio_filelist.txt",
+            "n_max_files": -1,
+            "language": "en_US"
+          },
+          "WavText5K": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_music/datasets",
+            "audio_dir": "WavText5K",
+            "filelist": "/lustre/fsw/portfolios/adlr/users/sanggill/filelists/adlr_audio_music_datasets_44khz/WavText5K_audio_filelist.txt",
+            "n_max_files": -1,
+            "language": "en_US"
+          },
+          "audiocaps": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_music/datasets",
+            "audio_dir": "audiocaps",
+            "filelist": "/lustre/fsw/portfolios/adlr/users/sanggill/filelists/adlr_audio_music_datasets_44khz/audiocaps_audio_filelist.txt",
+            "n_max_files": -1,
+            "language": "en_US"
+          },
+          "chime-home": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_music/datasets",
+            "audio_dir": "chime-home",
+            "filelist": "/lustre/fsw/portfolios/adlr/users/sanggill/filelists/adlr_audio_music_datasets_44khz/chime-home_audio_filelist.txt",
+            "n_max_files": -1,
+            "language": "en_US"
+          },
+          "common-accent": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_music/datasets",
+            "audio_dir": "common-accent",
+            "filelist": "/lustre/fsw/portfolios/adlr/users/sanggill/filelists/adlr_audio_music_datasets_44khz/common-accent_audio_filelist.txt",
+            "n_max_files": -1,
+            "language": "en_US"
+          },
+          "maestro-v3": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_music/datasets",
+            "audio_dir": "maestro-v3",
+            "filelist": "/lustre/fsw/portfolios/adlr/users/sanggill/filelists/adlr_audio_music_datasets_44khz/maestro-v3_audio_filelist.txt",
+            "n_max_files": -1,
+            "n_repeats": 10,
+            "language": "en_US"
+          },
+          "mtg-jamendo": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_music/datasets",
+            "audio_dir": "mtg-jamendo",
+            "filelist": "/lustre/fsw/portfolios/adlr/users/sanggill/filelists/adlr_audio_music_datasets_44khz/mtg-jamendo_audio_filelist.txt",
+            "n_max_files": -1,
+            "n_repeats": 5,
+            "language": "en_US"
+          },
+          "musdbhq": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_music/datasets",
+            "audio_dir": "musdbhq",
+            "filelist": "/lustre/fsw/portfolios/adlr/users/sanggill/filelists/adlr_audio_music_datasets_44khz/musdbhq_audio_filelist.txt",
+            "n_max_files": -1,
+            "language": "en_US"
+          },
+          "jl-corpus": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_speech/datasets/emotions/jl-corpus",
+            "audio_dir": "44khz",
+            "filelist": "jl-corpus_audiopath_text_sid_emotion_duration_filelist.txt",
+            "n_max_files": -1,
+            "language": "en_US"
+          },
+          "ravdess": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_speech/datasets/emotions/ravdess",
+            "audio_dir": "44khz",
+            "filelist": "ravdess_audiopath_text_sid_emotion_duration_filelist",
+            "n_max_files": -1,
+            "language": "en_US"
+          }
+        },
+        "validation_files": {
+            "LibriTTS-Dev": {
+                "basedir": "datasets/LibriTTS",
+                "audio_dir": "44khzfrom22khz",
+                "filelist": "dev_audiopath_text_speaker_emotion_duration_filelist.txt",
+                "n_max_files": 128,
+                "language": "en_US",
+                "n_repeats": 0
+            }
+        }    
+    }
+}

@@ -1,0 +1,33 @@
+{
+    "data": {
+      "dur_min": 0,
+      "dur_max": 99,
+      "sampling_rate": 22050,
+      "training_files": {
+          "HiFiTTS_clean_train": {
+              "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_speech/datasets/HIFI-TTS",
+              "audio_dir": "22khz",
+              "filelist": "hifitts_clean_train.ndjson",
+              "n_max_files": -1,
+              "language": "en_US"
+            },
+          "HiFiTTS_other_train": {
+            "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_speech/datasets/HIFI-TTS",
+            "audio_dir": "22khz",
+            "filelist": "hifitts_other_train.ndjson",
+            "n_max_files": -1,
+            "language": "en_US"
+            }
+        },
+        "validation_files": {
+            "HiFiTTS_clean_dev": {
+                "basedir": "/lustre/fsw/portfolios/adlr/projects/adlr_audio_speech/datasets/HIFI-TTS",
+                "audio_dir": "22khz",
+                "filelist": "hifitts_clean_dev.ndjson",
+                "n_max_files": -1,
+                "language": "en_US",
+                "n_repeats": 0
+            }
+        }    
+    }
+}
