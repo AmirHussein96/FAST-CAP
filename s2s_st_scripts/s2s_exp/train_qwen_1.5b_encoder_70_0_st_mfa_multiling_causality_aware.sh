@@ -107,7 +107,7 @@ export LHOTSE_AUDIO_DURATION_MISMATCH_TOLERANCE=0.3 && \
 export HYDRA_FULL_ERROR=1 && \
 export TORCH_CUDNN_V8_API_ENABLED=1 && \
 
-python "${CODE_DIR}/examples/speechlm2/s2s_duplex_speech_decoder_st_train_concat_v2.py" \
+python "${CODE_DIR}/examples/speechlm2/s2s_duplex_speech_decoder_st_train.py" \
     --config-path="${CONFIG_PATH}" \
     --config-name="${CONFIG_NAME}" \
     ++exp_manager.checkpoint_callback_params.save_top_k=3 \

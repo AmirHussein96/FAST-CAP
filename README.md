@@ -90,7 +90,7 @@ pip install -e '.[dev]'
 ```bash
 git clone https://github.com/AmirHussein96/NeMo.git
 cd NeMo
-git checkout s2s_st
+git checkout s2s_st2
 pip install -e '.[all]'
 ```
 
